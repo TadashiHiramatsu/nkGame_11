@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Policy">
+      <UniqueIdentifier>{710c0069-306b-499d-84f3-6b5a19c99920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{f94b0883-8105-4984-8cd5-4ee15351d47a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{3bb326f7-7dd1-4d70-8b70-69e028689c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{3b138c60-b503-4912-af29-3f47a319b7f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{b38134f4-dd93-4bc0-afcd-90127dc713f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{5c8a53e6-3601-4548-9b44-fe226991c9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{1f14b0bb-9b8e-43a5-b005-2796a27d1225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Buffer">
+      <UniqueIdentifier>{d5157cf9-15b4-4a81-9bf5-857025c2838a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\3DObject">
+      <UniqueIdentifier>{89f3f112-3b83-4d61-a2aa-b5e0ebea8dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\3DObject\Camera">
+      <UniqueIdentifier>{eaa5251b-c52b-4735-9827-68cbb63db483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{ef1149a0-d64c-461d-abe1-8dedbf62549f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\3DObject\Shape">
+      <UniqueIdentifier>{199277e1-13ba-499e-9fb6-5e16d7d18cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{c3bdacc1-f03e-4e07-b409-d5890dcd1c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\PreRender">
+      <UniqueIdentifier>{6dd0c91d-120a-4db6-abe5-6423d9bf3170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\3DObject\Model">
+      <UniqueIdentifier>{f7f44456-bcc4-476d-acd2-5901dfa078d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\3DObject\Model\ModelData">
+      <UniqueIdentifier>{a06c64ed-3368-4f0d-b598-7f4b7be0768d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\View">
+      <UniqueIdentifier>{0b62b80f-762a-49de-a820-0e75f6a9f095}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nkEngine.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="nkstdafx.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\nkRenderContext.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Debug\nkAssert.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="_Debug\nkLog.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="_Timer\nkStopwatch.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="_Timer\nkTime.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="_GameObject\nkGameObjectManager.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="_GameObject\nkGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="_Scene\nkScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="_Scene\nkSceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="_Math\nkMatrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="_Math\nkRandom.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="_Math\nkVector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="_Math\nkHash.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="nkMainLoop.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\nkShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Policy\nkNoncopyable.h">
+      <Filter>Policy</Filter>
+    </ClInclude>
+    <ClInclude Include="_Policy\nkScopedResource.h">
+      <Filter>Policy</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\Buffer\nkVertexBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h">
+      <Filter>Graphics\3DObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="_Component\nkTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\Buffer\nkBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\Buffer\nkConstantBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\Buffer\nkIndexBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\nkLight.h">
+      <Filter>Graphics\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\nkColor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Shape\nkBoxShape.h">
+      <Filter>Graphics\3DObject\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Shape\nkShape.h">
+      <Filter>Graphics\3DObject\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="_Input\nkXinput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="_Input\nkInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\PreRender\nkShadowMap.h">
+      <Filter>Graphics\PreRender</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\nkRenderTarget.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\View\nkShaderResourceView.h">
+      <Filter>Graphics\View</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="nkEngine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="nkstdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkRenderContext.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_GameObject\nkGameObjectManager.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="_Math\nkVector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="_Math\nkMatrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="nkMainLoop.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkShader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\Buffer\nkVertexBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp">
+      <Filter>Graphics\3DObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="_Component\nkTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\Buffer\nkConstantBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\Buffer\nkBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\Buffer\nkIndexBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\nkLight.cpp">
+      <Filter>Graphics\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkColor.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Shape\nkBoxShape.cpp">
+      <Filter>Graphics\3DObject\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Shape\nkShape.cpp">
+      <Filter>Graphics\3DObject\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="_Input\nkXinput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="_Input\nkInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\PreRender\nkShadowMap.cpp">
+      <Filter>Graphics\PreRender</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkRenderTarget.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\View\nkShaderResourceView.cpp">
+      <Filter>Graphics\View</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

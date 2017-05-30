@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8087523D-51B8-4CC4-8C3B-68DC9F0D9321}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>nkEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)../;$(ProjectDir);C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;DEBUG;PROFILE;D3DXFX_LARGEADDRESS_HANDLE</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>nkstdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;Xinput.lib;libfbxsdk-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="nkEngine.h" />
+    <ClInclude Include="nkMainLoop.h" />
+    <ClInclude Include="nkstdafx.h" />
+    <ClInclude Include="_Component\nkTransform.h" />
+    <ClInclude Include="_Debug\nkAssert.h" />
+    <ClInclude Include="_Debug\nkLog.h" />
+    <ClInclude Include="_GameObject\nkGameObject.h" />
+    <ClInclude Include="_GameObject\nkGameObjectManager.h" />
+    <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h" />
+    <ClInclude Include="_Graphics\3DObject\nkLight.h" />
+    <ClInclude Include="_Graphics\3DObject\Shape\nkBoxShape.h" />
+    <ClInclude Include="_Graphics\3DObject\Shape\nkShape.h" />
+    <ClInclude Include="_Graphics\Buffer\nkBuffer.h" />
+    <ClInclude Include="_Graphics\Buffer\nkConstantBuffer.h" />
+    <ClInclude Include="_Graphics\Buffer\nkIndexBuffer.h" />
+    <ClInclude Include="_Graphics\Buffer\nkVertexBuffer.h" />
+    <ClInclude Include="_Graphics\nkColor.h" />
+    <ClInclude Include="_Graphics\nkRenderContext.h" />
+    <ClInclude Include="_Graphics\nkRenderTarget.h" />
+    <ClInclude Include="_Graphics\nkShader.h" />
+    <ClInclude Include="_Graphics\PreRender\nkShadowMap.h" />
+    <ClInclude Include="_Graphics\View\nkShaderResourceView.h" />
+    <ClInclude Include="_Input\nkInput.h" />
+    <ClInclude Include="_Input\nkXinput.h" />
+    <ClInclude Include="_Math\nkHash.h" />
+    <ClInclude Include="_Math\nkMatrix.h" />
+    <ClInclude Include="_Math\nkRandom.h" />
+    <ClInclude Include="_Math\nkVector.h" />
+    <ClInclude Include="_Policy\nkNoncopyable.h" />
+    <ClInclude Include="_Policy\nkScopedResource.h" />
+    <ClInclude Include="_Scene\nkScene.h" />
+    <ClInclude Include="_Scene\nkSceneManager.h" />
+    <ClInclude Include="_Timer\nkStopwatch.h" />
+    <ClInclude Include="_Timer\nkTime.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="nkEngine.cpp" />
+    <ClCompile Include="nkMainLoop.cpp" />
+    <ClCompile Include="nkstdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nkstdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="_Component\nkTransform.cpp" />
+    <ClCompile Include="_GameObject\nkGameObjectManager.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp" />
+    <ClCompile Include="_Graphics\3DObject\nkLight.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Shape\nkBoxShape.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Shape\nkShape.cpp" />
+    <ClCompile Include="_Graphics\Buffer\nkBuffer.cpp" />
+    <ClCompile Include="_Graphics\Buffer\nkConstantBuffer.cpp" />
+    <ClCompile Include="_Graphics\Buffer\nkIndexBuffer.cpp" />
+    <ClCompile Include="_Graphics\Buffer\nkVertexBuffer.cpp" />
+    <ClCompile Include="_Graphics\nkColor.cpp" />
+    <ClCompile Include="_Graphics\nkRenderContext.cpp" />
+    <ClCompile Include="_Graphics\nkRenderTarget.cpp" />
+    <ClCompile Include="_Graphics\nkShader.cpp" />
+    <ClCompile Include="_Graphics\PreRender\nkShadowMap.cpp" />
+    <ClCompile Include="_Graphics\View\nkShaderResourceView.cpp" />
+    <ClCompile Include="_Input\nkInput.cpp" />
+    <ClCompile Include="_Input\nkXinput.cpp" />
+    <ClCompile Include="_Math\nkMatrix.cpp" />
+    <ClCompile Include="_Math\nkVector.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

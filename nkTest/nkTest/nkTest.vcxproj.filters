@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{dce7931f-223d-4593-bd87-2145b5dc4253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{e0808ade-b6e0-4824-92ac-80c10c36731b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\GameObject">
+      <UniqueIdentifier>{14c44a43-b106-49a0-b725-0360130ab182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d2cc5109-e138-4762-b8a1-6254b0a52e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\MapObject">
+      <UniqueIdentifier>{762d9156-18ed-4c1f-a1af-2326d650eebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Player">
+      <UniqueIdentifier>{81e307e0-2e34-49fe-af37-e21849ef3ef3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\MainScene.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\MapObject\Ground.cpp">
+      <Filter>Main\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Player\UnityChan.cpp">
+      <Filter>Main\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\GameObject\MainLight.cpp">
+      <Filter>Main\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\GameObject\MainCamera.cpp">
+      <Filter>Main\GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\MainScene.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\MapObject\Ground.h">
+      <Filter>Main\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Player\UnityChan.h">
+      <Filter>Main\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\GameObject\MainLight.h">
+      <Filter>Main\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\GameObject\MainCamera.h">
+      <Filter>Main\GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Asset\Shader\Shape.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Asset\Shader\Model.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Asset\Shader\ShadowMap.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
