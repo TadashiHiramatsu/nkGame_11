@@ -56,6 +56,12 @@
     <Filter Include="Graphics\View">
       <UniqueIdentifier>{0b62b80f-762a-49de-a820-0e75f6a9f095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\PostEffect">
+      <UniqueIdentifier>{fc9ceb14-9217-4296-8ed9-8f97b59469e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\UI">
+      <UniqueIdentifier>{cdb09f05-3123-43a3-a78d-2658e8f70986}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nkEngine.h">
@@ -169,6 +175,21 @@
     <ClInclude Include="_Graphics\View\nkShaderResourceView.h">
       <Filter>Graphics\View</Filter>
     </ClInclude>
+    <ClInclude Include="_Graphics\nkBlur.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\PostEffect\nkSSAO.h">
+      <Filter>Graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\nkTexture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMaterial.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\UI\nkImage.h">
+      <Filter>Graphics\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nkEngine.cpp">
@@ -248,6 +269,21 @@
     </ClCompile>
     <ClCompile Include="_Graphics\View\nkShaderResourceView.cpp">
       <Filter>Graphics\View</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkBlur.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\PostEffect\nkSSAO.cpp">
+      <Filter>Graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkTexture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMaterial.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\UI\nkImage.cpp">
+      <Filter>Graphics\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

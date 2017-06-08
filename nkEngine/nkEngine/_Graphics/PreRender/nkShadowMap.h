@@ -3,6 +3,8 @@
 */
 #pragma once
 
+#include"../nkBlur.h"
+
 namespace nkEngine
 {
 
@@ -17,17 +19,14 @@ namespace nkEngine
 	public:
 
 		/**
-		* シャドウレシーバー用パラメータ. 
+		* シャドウレシーバー用パラメータ.
 		*/
 		struct ShadowReceiverParamS
 		{
-		public:
-
 			/** ライトビュー行列. */
 			Matrix LVMatrix_ = Matrix::Identity;
 			/** ライトプロジェクション行列. */
 			Matrix LPMatrix_ = Matrix::Identity;
-
 		};
 
 	public:
@@ -81,15 +80,8 @@ namespace nkEngine
 		*/
 		ShaderResourceView& GetShadowMapSRV()
 		{
+			return Blur_.GetBlurSRV();
 			return ShadowMapRT_.GetRenderTargetSRV();
-		}
-
-		/**
-		* シャドウレシーバー用のパラメータを取得.
-		*/
-		const ShadowReceiverParamS& GetShadowReceiverParam()
-		{
-			return ShadowReceiverParam_;
 		}
 
 		/**
@@ -148,6 +140,22 @@ namespace nkEngine
 			return PShader_;
 		}
 
+		/**
+		* ライトビュー行列を取得.
+		*/
+		const Matrix& GetLVMatrix() const 
+		{
+			return LVMatrix_;
+		}
+
+		/**
+		* ライトプロジェクション行列を取得.
+		*/
+		const Matrix& GetLPMatrix() const
+		{
+			return LPMatrix_;
+		}
+
 	private:
 
 		/** 有効フラグ. */
@@ -155,11 +163,16 @@ namespace nkEngine
 
 		/** シャドウマップ用レンダリングターゲット. */
 		RenderTarget ShadowMapRT_;
+		/** VSM用ブラー. */
+		Blur Blur_;
 		/** 影を書き込むモデルリスト. */
 		vector<ModelRender*> CasterModelList_;
 		
-		/** シャドウレシーバー用のパラメータ. */
-		ShadowReceiverParamS ShadowReceiverParam_;
+		/** ライトビュー行列. */
+		Matrix LVMatrix_ = Matrix::Identity;
+		/** ライトプロジェクション行列. */
+		Matrix LPMatrix_ = Matrix::Identity;
+
 
 		/** ライトの視点. */
 		Vector3 LightPosition_ = Vector3::Up;

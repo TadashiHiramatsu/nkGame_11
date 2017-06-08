@@ -24,6 +24,9 @@
 #include<stdarg.h>
 #include<algorithm>
 #include<time.h>
+#include<sstream>
+
+#include<shlwapi.h>
 
 //STL
 #include<map>
@@ -47,6 +50,8 @@ using namespace std;
 #include<fbxsdk.h>
 
 using namespace fbxsdk;
+
+#include<DirectXTex\DirectXTex.h>
 
 //自作ヘッダインクルード.
 #include"_Debug\nkAssert.h"
@@ -84,6 +89,8 @@ using namespace fbxsdk;
 #include"_Graphics\Buffer\nkConstantBuffer.h"
 
 #include"_Graphics\View\nkShaderResourceView.h"
+
+#include"_Graphics\nkTexture.h"
 
 #include"_Graphics\3DObject\Camera\nkCamera.h"
 #include"_Graphics\3DObject\nkLight.h"

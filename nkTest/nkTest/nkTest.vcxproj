@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(SolutionDir)nkTest;$(SolutionDir)../;$(SolutionDir);$(SolutionDir)../nkEngine;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(SolutionDir)/x64/Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(SolutionDir)/x64/Debug;C:\Github\nkGame_11\nkEngine\nkEngine\DirectXTex\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,7 +107,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;DEBUG;PROFILE;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(SolutionDir)nkTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(SolutionDir)nkTest;$(SolutionDir)../nkEngine\nkEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +153,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Main\GameObject\MainLight.cpp" />
     <ClCompile Include="Main\GameObject\MainCamera.cpp" />
+    <ClCompile Include="Main\GameObject\TestObject.cpp" />
     <ClCompile Include="Main\MainScene.cpp" />
     <ClCompile Include="Main\MapObject\Ground.cpp" />
     <ClCompile Include="Main\Player\UnityChan.cpp" />
@@ -163,12 +164,19 @@
   <ItemGroup>
     <ClInclude Include="Main\GameObject\MainLight.h" />
     <ClInclude Include="Main\GameObject\MainCamera.h" />
+    <ClInclude Include="Main\GameObject\TestObject.h" />
     <ClInclude Include="Main\MainScene.h" />
     <ClInclude Include="Main\MapObject\Ground.h" />
     <ClInclude Include="Main\Player\UnityChan.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Asset\Shader\Blur.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Asset\Shader\HDAO.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="Asset\Shader\Model.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

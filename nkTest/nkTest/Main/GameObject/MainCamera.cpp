@@ -15,7 +15,7 @@ void MainCamera::Start()
 	//ƒJƒƒ‰‚Ì’‹“_‚ğİ’è.
 	Camera_.SetTarget(Vector3(0.0f, 0.0f, 0.0f));
 
-	Distance_ = 5;
+	Distance_ = 10;
 	Camera_.SetDistance(Distance_);
 
 	Camera_.SetNear(0.01f);

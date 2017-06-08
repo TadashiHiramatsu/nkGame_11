@@ -12,7 +12,7 @@
 */
 void UnityChan::Start()
 {
-	ModelRender_.Init("unitychan", &Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
+	ModelRender_.Init("UnityChan", &Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
 }
 
 /**
@@ -22,7 +22,7 @@ void UnityChan::Update()
 {
 	static float angle = 0;
 	Transform_.Rotation_.RotationAxis(Vector3::Up, angle);
-	angle += 0.1f;
+	angle -= 0.1f;
 
 	Transform_.Update();
 

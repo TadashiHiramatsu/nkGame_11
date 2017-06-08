@@ -10,7 +10,7 @@
 void MainLight::Start()
 {
 
-	Light_.SetDiffuseLightColor(0, Vector4(0.6f, 0.6f, 0.6f, 0.0f));
+	Light_.SetDiffuseLightColor(0, Vector4(0.6f, 0.6f, 0.6f, 1.0f));
 
 	Light_.SetAmbientLight(Vector4(0.5f, 0.5f, 0.5f, 1.0f));
 	
@@ -26,7 +26,7 @@ void MainLight::Start()
 void MainLight::Update()
 {
 	static float angle = 0;
-	Vector3 dld = Vector3(1.0f, -1.0f, 1.0f);
+	Vector3 dld = Vector3(1.0f, -0.5f, 1.0f);
 	dld.Normalize();
 	Matrix mTmp = Matrix::Identity;
 	mTmp.MakeRotationY(angle);

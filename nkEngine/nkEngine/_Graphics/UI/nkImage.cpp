@@ -1,0 +1,10 @@
+/**
+* ‰æ‘œ•`‰æƒNƒ‰ƒX‚ÌŽÀ‘•.
+*/
+#include"nkstdafx.h"
+#include"nkImage.h"
+
+namespace nkEngine
+{
+
+}

@@ -74,8 +74,8 @@ namespace nkEngine
 			PSConstantBufferS psConstant;
 			psConstant.Light_ = *Light_;
 			
-			psConstant.SRP_.LVMatrix_.Transpose(Engine().GetShadowMap().GetShadowReceiverParam().LVMatrix_);
-			psConstant.SRP_.LPMatrix_.Transpose(Engine().GetShadowMap().GetShadowReceiverParam().LPMatrix_);
+			psConstant.SRP_.LVMatrix_.Transpose(Engine().GetShadowMap().GetLVMatrix());
+			psConstant.SRP_.LPMatrix_.Transpose(Engine().GetShadowMap().GetLPMatrix());
 
 			Vector4 cameraPos;
 			cameraPos.x = Camera_->GetPosition().x;
@@ -83,14 +83,33 @@ namespace nkEngine
 			cameraPos.z = Camera_->GetPosition().z;
 			cameraPos.w = 1.0f;
 			psConstant.CameraPos_ = cameraPos;
+
+			//シャドウテクスチャを設定.
+			Engine().GetRenderContext().PSSetShaderResource(3, Engine().GetShadowMap().GetShadowMapSRV());
+
+			if (it->GetMaterialNum() != -1)
+			{
+				Engine().GetRenderContext().PSSetShaderResource(0, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetTextureSRV());
+			
+				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isNormalMap())
+				{
+					Engine().GetRenderContext().PSSetShaderResource(1, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetNormalTextureSRV());
+					psConstant.EffectFlag_.x = 1.0f;
+				}
+
+				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isSpecularMap())
+				{
+					Engine().GetRenderContext().PSSetShaderResource(2, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetSpecularTextureSRV());
+					psConstant.EffectFlag_.y = 1.0f;
+				}
+			}
 			
 			//VSステージの定数バッファを更新.
 			Engine().GetRenderContext().UpdateSubresource(PSConstantBuffer_, psConstant);
 			//VSステージの定数バッファを設定.
 			Engine().GetRenderContext().PSSetConstantBuffer(0, PSConstantBuffer_);
 
-			Engine().GetRenderContext().PSSetShaderResource(0, Engine().GetShadowMap().GetShadowMapSRV());
-
+			//メッシュ描画.
 			it->Render();
 		}
 	}
@@ -111,13 +130,14 @@ namespace nkEngine
 
 			VSConstantBufferS vsConstant;
 			vsConstant.WorldMatrix_.Transpose(it->GetWorldMatrix());
-			vsConstant.ViewMatrix_.Transpose(Engine().GetShadowMap().GetShadowReceiverParam().LVMatrix_);
-			vsConstant.ProjMatrix_.Transpose(Engine().GetShadowMap().GetShadowReceiverParam().LPMatrix_);
+			vsConstant.ViewMatrix_.Transpose(Engine().GetShadowMap().GetLVMatrix());
+			vsConstant.ProjMatrix_.Transpose(Engine().GetShadowMap().GetLPMatrix());
 			//VSステージの定数バッファを更新.
 			Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
 			//VSステージの定数バッファを設定.
 			Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
 
+			//メッシュ描画.
 			it->Render();
 		}
 	}

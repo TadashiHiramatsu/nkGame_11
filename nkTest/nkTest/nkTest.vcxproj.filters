@@ -42,6 +42,9 @@
     <ClCompile Include="Main\GameObject\MainCamera.cpp">
       <Filter>Main\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Main\GameObject\TestObject.cpp">
+      <Filter>Main\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -62,6 +65,9 @@
     <ClInclude Include="Main\GameObject\MainCamera.h">
       <Filter>Main\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Main\GameObject\TestObject.h">
+      <Filter>Main\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Asset\Shader\Shape.fx">
@@ -71,6 +77,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Asset\Shader\ShadowMap.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Asset\Shader\Blur.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Asset\Shader\HDAO.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

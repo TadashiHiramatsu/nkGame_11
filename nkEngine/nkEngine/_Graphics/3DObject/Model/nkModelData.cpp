@@ -40,8 +40,9 @@ namespace nkEngine
 		//Unityの単位に合わさったかな？
 		FbxSystemUnit::m.ConvertScene(FBXScene);
 
-		//メッシュ作成.
-		CreateMesh(FBXScene, parent);
+		FbxNode* FBXRootNode = FBXScene->GetRootNode();
+
+		ProbeNode(FBXRootNode, parent);
 
 		FBXScene->Destroy();
 		FBXManager->Destroy();
@@ -56,18 +57,6 @@ namespace nkEngine
 		{
 			it->Update();
 		}
-	}
-
-	/**
-	* メッシュ作成.
-	*
-	* @param fbxScene	FBXSDKのシーンクラス.
-	*/
-	void ModelData::CreateMesh(FbxScene * fbxScene,Transform* parent)
-	{
-		FbxNode* FBXRootNode = fbxScene->GetRootNode();
-	
-		ProbeNode(FBXRootNode, parent);
 	}
 
 	/**
@@ -93,7 +82,7 @@ namespace nkEngine
 				if (attrType == FbxNodeAttribute::eMesh)
 				{
 					mesh = new Mesh();
-					mesh->Load(fbxNode->GetMesh(), parent);
+					mesh->Load(fbxNode->GetMesh(), parent,this);
 				}
 			}
 

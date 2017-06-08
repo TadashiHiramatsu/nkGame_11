@@ -35,6 +35,7 @@ namespace nkEngine
 			if (FAILED(hr))
 			{
 				//作成不可.
+				NK_ASSERT(false, "SRV作成不可.");
 				return false;
 			}
 		}
@@ -45,6 +46,30 @@ namespace nkEngine
 		}
 
 		//正常終了.
+		return true;
+	}
+
+	/**
+	* テクスチャ用のSRVを作成.
+	*
+	* @param meta	テクスチャメタデータ.
+	* @param image	スクラッチイメージ.
+	*/
+	bool ShaderResourceView::Create(DirectX::TexMetadata& meta, DirectX::ScratchImage& image)
+	{
+		Release();
+
+		HRESULT hr;
+		
+		hr = DirectX::CreateShaderResourceView(Engine().GetDevice(), image.GetImages(), image.GetImageCount(), meta, &D3DSRV_);
+
+		if (FAILED(hr))
+		{
+			//作成不可.
+			NK_ASSERT(false, "SRV作成不可.");
+			return false;
+		}
+
 		return true;
 	}
 

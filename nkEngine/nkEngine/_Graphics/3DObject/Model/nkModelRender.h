@@ -33,6 +33,7 @@ namespace nkEngine
 			Light Light_;	//!< ライト.
 			ShadowMap::ShadowReceiverParamS SRP_;	//!< シャドウレシーバー用パラメータ.
 			Vector4 CameraPos_;	//!< カメラポジション.
+			Vector4 EffectFlag_ = Vector4::Zero;	//!< x:法線マップ, y:スペキュラマップ.
 		};
 
 	public:

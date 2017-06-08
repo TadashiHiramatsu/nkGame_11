@@ -23,9 +23,9 @@ struct VS_OUTPUT
 */
 cbuffer VSConstantBuffer : register(b0)
 {
-	matrix WorldMatrix_;	//!<ワールド行列.
-	matrix ViewMatrix_;		//!<ビュー行列.
-	matrix ProjMatrix_;		//!<プロジェクション行列.
+	float4x4 WorldMatrix_;	//!<ワールド行列.
+	float4x4 ViewMatrix_;		//!<ビュー行列.
+	float4x4 ProjMatrix_;		//!<プロジェクション行列.
 }
 
 /**

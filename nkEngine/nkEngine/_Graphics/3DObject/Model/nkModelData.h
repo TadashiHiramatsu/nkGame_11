@@ -4,6 +4,7 @@
 #pragma once
 
 #include"ModelData\nkMesh.h"
+#include"ModelData\nkMaterial.h"
 
 namespace nkEngine
 {
@@ -49,14 +50,15 @@ namespace nkEngine
 			return MeshList_;
 		}
 
-	private:
-		 
 		/**
-		* メッシュ作成.
-		*
-		* @param fbxScene	FBXSDKのシーンクラス.
+		* マテリアルリストの取得.
 		*/
-		void CreateMesh(FbxScene* fbxScene, Transform* parent);
+		vector<Material*>& GetMaterialList()
+		{
+			return MaterialList_;
+		}
+
+	private:
 
 		/**
 		* ノード探索.
@@ -70,6 +72,8 @@ namespace nkEngine
 
 		/** メッシュリスト. */
 		vector<Mesh*> MeshList_;
+		/** マテリアルリスト. */
+		vector<Material*> MaterialList_;
 
 	};
 

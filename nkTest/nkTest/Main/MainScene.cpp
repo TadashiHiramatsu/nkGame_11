@@ -23,7 +23,10 @@ void MainScene::Start()
 {
 	g_MainCamera = NewGO<MainCamera>();
 	g_MainLight = NewGO<MainLight>();
+	
 	NewGO<UnityChan>();
 	NewGO<Ground>();
+
+	//NewGO<TestObject>();
 
 }

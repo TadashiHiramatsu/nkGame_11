@@ -1,0 +1,10 @@
+/**
+* SSAOƒNƒ‰ƒX‚ÌŽÀ‘•.
+*/
+#include"nkstdafx.h"
+#include"nkSSAO.h"
+
+namespace nkEngine
+{
+
+}

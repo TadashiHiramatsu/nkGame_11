@@ -36,17 +36,9 @@ public:
 	*/
 	void Render()override;
 
-	void SetParent(Transform* p)
-	{
-		Transform_.Parent_ = p;
-	}
-
 private:
 
-	/** ライトクラス. */
-	Light Light_;
-
-	/** ボックス形状. */
-	BoxShape Box_;
+	/** モデルクラス. */
+	ModelRender Model_;
 
 };

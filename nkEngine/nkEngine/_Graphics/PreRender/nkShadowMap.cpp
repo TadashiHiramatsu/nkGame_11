@@ -38,6 +38,9 @@ namespace nkEngine
 		//シャドウマップ用RTを作成.
 		ShadowMapRT_.Create(w, h, 1, DXGI_FORMAT_R16G16_FLOAT, DXGI_FORMAT_D24_UNORM_S8_UINT, md);
 
+		//ブラー作成.
+		Blur_.Create(w, h, ShadowMapRT_.GetRenderTargetSRV());
+
 		//シャドウエリアを設定.
 		ShadowArea_ = Vector2(20.0f, 20.0f);
 
@@ -76,10 +79,10 @@ namespace nkEngine
 			}
 
 			//ライトビュー行列.
-			ShadowReceiverParam_.LVMatrix_.MakeLookAtLH(LightPosition_, LightTarget_, lightUp);
+			LVMatrix_.MakeLookAtLH(LightPosition_, LightTarget_, lightUp);
 
 			//ライトプロジェクション行列.
-			ShadowReceiverParam_.LPMatrix_.MakeOrthoProjectionLH(ShadowArea_.x * Aspect_, ShadowArea_.y, Near_, Far_);
+			LPMatrix_.MakeOrthoProjectionLH(ShadowArea_.x * Aspect_, ShadowArea_.y, Near_, Far_);
 
 		}
 	}
@@ -105,6 +108,9 @@ namespace nkEngine
 			{
 				it->RenderToShadowMap();
 			}
+
+			//ブラー描画.
+			Blur_.Render();
 
 			//モデルリストをクリア.
 			CasterModelList_.clear();

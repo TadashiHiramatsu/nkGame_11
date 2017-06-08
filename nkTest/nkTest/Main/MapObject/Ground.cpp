@@ -13,7 +13,6 @@
 void Ground::Start()
 {
 	ModelRender_.Init("Ground", &Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
-
 }
 
 /**

@@ -38,6 +38,14 @@ namespace nkEngine
 		bool Create(ID3D11Texture2D* texture);
 
 		/**
+		* テクスチャ用のSRVを作成.
+		*
+		* @param meta	テクスチャメタデータ.
+		* @param image	スクラッチイメージ.
+		*/
+		bool Create(DirectX::TexMetadata& meta, DirectX::ScratchImage& image);
+
+		/**
 		* 解放.
 		* デストラクタで呼んでいる.
 		*/

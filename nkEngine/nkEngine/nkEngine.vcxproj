@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;C:\Github\nkGame_11\nkEngine\nkEngine\DirectXTex\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,7 +105,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;Xinput.lib;libfbxsdk-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;Xinput.lib;libfbxsdk-mt.lib;DirectXTex.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,6 +148,7 @@
     <ClInclude Include="_GameObject\nkGameObject.h" />
     <ClInclude Include="_GameObject\nkGameObjectManager.h" />
     <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMaterial.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h" />
@@ -158,11 +159,15 @@
     <ClInclude Include="_Graphics\Buffer\nkConstantBuffer.h" />
     <ClInclude Include="_Graphics\Buffer\nkIndexBuffer.h" />
     <ClInclude Include="_Graphics\Buffer\nkVertexBuffer.h" />
+    <ClInclude Include="_Graphics\nkBlur.h" />
     <ClInclude Include="_Graphics\nkColor.h" />
     <ClInclude Include="_Graphics\nkRenderContext.h" />
     <ClInclude Include="_Graphics\nkRenderTarget.h" />
     <ClInclude Include="_Graphics\nkShader.h" />
+    <ClInclude Include="_Graphics\nkTexture.h" />
+    <ClInclude Include="_Graphics\PostEffect\nkSSAO.h" />
     <ClInclude Include="_Graphics\PreRender\nkShadowMap.h" />
+    <ClInclude Include="_Graphics\UI\nkImage.h" />
     <ClInclude Include="_Graphics\View\nkShaderResourceView.h" />
     <ClInclude Include="_Input\nkInput.h" />
     <ClInclude Include="_Input\nkXinput.h" />
@@ -190,6 +195,7 @@
     <ClCompile Include="_Component\nkTransform.cpp" />
     <ClCompile Include="_GameObject\nkGameObjectManager.cpp" />
     <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMaterial.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp" />
@@ -200,11 +206,15 @@
     <ClCompile Include="_Graphics\Buffer\nkConstantBuffer.cpp" />
     <ClCompile Include="_Graphics\Buffer\nkIndexBuffer.cpp" />
     <ClCompile Include="_Graphics\Buffer\nkVertexBuffer.cpp" />
+    <ClCompile Include="_Graphics\nkBlur.cpp" />
     <ClCompile Include="_Graphics\nkColor.cpp" />
     <ClCompile Include="_Graphics\nkRenderContext.cpp" />
     <ClCompile Include="_Graphics\nkRenderTarget.cpp" />
     <ClCompile Include="_Graphics\nkShader.cpp" />
+    <ClCompile Include="_Graphics\nkTexture.cpp" />
+    <ClCompile Include="_Graphics\PostEffect\nkSSAO.cpp" />
     <ClCompile Include="_Graphics\PreRender\nkShadowMap.cpp" />
+    <ClCompile Include="_Graphics\UI\nkImage.cpp" />
     <ClCompile Include="_Graphics\View\nkShaderResourceView.cpp" />
     <ClCompile Include="_Input\nkInput.cpp" />
     <ClCompile Include="_Input\nkXinput.cpp" />

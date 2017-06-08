@@ -4,18 +4,15 @@
 #include"stdafx.h"
 #include"TestObject.h"
 
-#include"TestCamera.h"
+#include"MainCamera.h"
+#include"MainLight.h"
 
 /**
 * ‰Šú‰».
 */
 void TestObject::Start()
 {
-	Vector3 dld = Vector3(0.0f, -1.0f, 1.0f);
-	dld.Normalize();
-	Light_.SetDiffuseLightDirection(0, dld);
-
-	Box_.Create(&Transform_, &Light_, g_TestCamera->GetCamera());
+	Model_.Init("Building_a",&Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
 }
 
 /**
@@ -28,6 +25,8 @@ void TestObject::Update()
 	angle += 0.1f;
 
 	Transform_.Update();
+
+	Model_.Update();
 }
 
 /**
@@ -35,5 +34,5 @@ void TestObject::Update()
 */
 void TestObject::Render()
 {
-	Box_.Render();
+	Model_.Render();
 }

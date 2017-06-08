@@ -6,6 +6,9 @@
 namespace nkEngine
 {
 
+	class ModelData;
+	class Material;
+
 	/**
 	* メッシュクラス.
 	*/
@@ -19,7 +22,9 @@ namespace nkEngine
 		struct VertexBufferS
 		{
 			Vector4 Pos = Vector4(0, 0, 0, 1);	//!< 頂点.
-			Vector3 Normal = Vector3::Zero;			//!< 法線.
+			Vector2 Tex = Vector2::Zero;		//!< UV座標.
+			Vector3 Normal = Vector3::Zero;		//!< 法線ベクトル.
+			Vector3 Tangent = Vector3::Zero;	//!< 接ベクトル
 		};
 
 	public:
@@ -30,7 +35,7 @@ namespace nkEngine
 		* @param fbxMesh	FBXSDKのメッシュクラス.
 		* @param parent		親のトランスフォームポインタ.
 		*/
-		void Load(FbxMesh* fbxMesh,Transform* parent);
+		void Load(FbxMesh* fbxMesh,Transform* parent, ModelData* modelData);
 
 		/**
 		* 更新.
@@ -51,19 +56,19 @@ namespace nkEngine
 		}
 
 		/**
-		* インデックス数を取得.
-		*/
-		UINT GetIndexCount()
-		{
-			return IndexCount_;
-		}
-
-		/**
 		* トランスフォームのポインタを取得.
 		*/
 		Transform* GetTransform()
 		{
 			return &LocalTransform_;
+		}
+
+		/**
+		* 対応したマテリアル番号を取得.
+		*/
+		int GetMaterialNum() const
+		{
+			return MaterialNum_;
 		}
 
 	private:
@@ -74,6 +79,13 @@ namespace nkEngine
 		* @param fbxMesh	FBXSDKのメッシュクラス.
 		*/
 		void CreateBuffer(FbxMesh* fbxMesh);
+
+		/**
+		* マテリアルの作成.
+		*
+		* @param fbxNode	FBXSDKのノードクラス. 
+		*/
+		void CreateMaterial(FbxNode* fbxNode,ModelData* modelData);
 
 	private:
 
@@ -87,10 +99,13 @@ namespace nkEngine
 		VertexBuffer VertexBuffer_;
 		/** 頂点数. */
 		UINT VertexCount_ = 0;
-		/** インデックスバッファ. */
-		IndexBuffer IndexBuffer_;
-		/** インデックス数. */
-		UINT IndexCount_ = 0;
+
+		/** 対応するマテリアル番号. */
+		int MaterialNum_ = -1;
+
+		/** UVセット名. */
+		string UVSetName_;
 
 	};
+
 }
