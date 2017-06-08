@@ -32,10 +32,28 @@ namespace nkEngine
 		DepthStencilView_ = renderTarget[0].GetDepthStencilView();
 		for (UINT i = 0; i < numView; i++)
 		{
-			RenderTargetViewList_[i] = renderTarget[0].GetRenderTargetView();
+			RenderTargetViewList_[i] = renderTarget[i].GetRenderTargetView();
 		}
 		D3DDeviceContext_->OMSetRenderTargets(numView, RenderTargetViewList_, DepthStencilView_);
 		NumRenderTargetView_ = numView;
+	}
+
+	/**
+	* PSステージにサンプラステートを設定.
+	*
+	* @param startSlot		開始スロット番号.
+	* @param numSamplers	サンプラ数.
+	* @param sampler		サンプラステートクラス.
+	*/
+	void RenderContext::PSSetSampler(UINT startSlot, UINT numSamplers, SamplerState * sampler)
+	{
+		ZeroMemory(D3DSamplerList_, sizeof(D3DSamplerList_));
+
+		for (int i = 0; i < numSamplers; i++)
+		{
+			D3DSamplerList_[i] = sampler[0].GetBody();
+		}
+		D3DDeviceContext_->PSSetSamplers(startSlot, numSamplers, D3DSamplerList_);
 	}
 
 }

@@ -19,11 +19,11 @@ namespace nkEngine
 		Release();
 		HRESULT hr = S_OK;
 
-		DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+		DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 
 #if defined( DEBUG ) || defined( _DEBUG )
 		//デバック状態.
-		dwShaderFlags |= D3DCOMPILE_DEBUG;
+		dwShaderFlags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
 		//コンパイル済みシェーダー.

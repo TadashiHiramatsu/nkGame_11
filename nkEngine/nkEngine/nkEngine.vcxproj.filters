@@ -190,6 +190,9 @@
     <ClInclude Include="_Graphics\UI\nkImage.h">
       <Filter>Graphics\UI</Filter>
     </ClInclude>
+    <ClInclude Include="_Graphics\nkSamplerState.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nkEngine.cpp">
@@ -284,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="_Graphics\UI\nkImage.cpp">
       <Filter>Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\nkSamplerState.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

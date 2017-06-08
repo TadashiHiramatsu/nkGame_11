@@ -108,6 +108,9 @@ namespace nkEngine
 		/** PSステージの定数バッファ. */
 		ConstantBuffer PSConstantBuffer_;
 
+		/** サンプラステート. */
+		SamplerState SamplerState_;
+
 		/** ライトのポインタ. */
 		Light* Light_ = nullptr;
 		/** カメラのポインタ. */

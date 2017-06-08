@@ -163,6 +163,7 @@
     <ClInclude Include="_Graphics\nkColor.h" />
     <ClInclude Include="_Graphics\nkRenderContext.h" />
     <ClInclude Include="_Graphics\nkRenderTarget.h" />
+    <ClInclude Include="_Graphics\nkSamplerState.h" />
     <ClInclude Include="_Graphics\nkShader.h" />
     <ClInclude Include="_Graphics\nkTexture.h" />
     <ClInclude Include="_Graphics\PostEffect\nkSSAO.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="_Graphics\nkColor.cpp" />
     <ClCompile Include="_Graphics\nkRenderContext.cpp" />
     <ClCompile Include="_Graphics\nkRenderTarget.cpp" />
+    <ClCompile Include="_Graphics\nkSamplerState.cpp" />
     <ClCompile Include="_Graphics\nkShader.cpp" />
     <ClCompile Include="_Graphics\nkTexture.cpp" />
     <ClCompile Include="_Graphics\PostEffect\nkSSAO.cpp" />

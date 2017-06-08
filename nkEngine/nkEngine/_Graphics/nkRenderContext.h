@@ -8,6 +8,8 @@
 #include"Buffer\nkIndexBuffer.h"
 #include"Buffer\nkConstantBuffer.h"
 
+#include"nkSamplerState.h"
+
 #include"_Graphics\nkRenderTarget.h"
 
 namespace nkEngine
@@ -216,7 +218,7 @@ namespace nkEngine
 		}
 
 		/**
-		* 頂点シェーダにSRVを設定.
+		* VSステージにSRVを設定.
 		*
 		* @param slotNo	スロット番号.
 		* @param srv	シェーダリソースビュー.
@@ -227,7 +229,7 @@ namespace nkEngine
 		}
 
 		/**
-		* ピクセルシェーダにSRVを設定.
+		* PSステージにSRVを設定.
 		*
 		* @param slotNo	スロット番号.
 		* @param srv	シェーダリソースビュー.
@@ -236,6 +238,15 @@ namespace nkEngine
 		{
 			D3DDeviceContext_->PSSetShaderResources(slotNo, 1, &srv.GetBody());
 		}
+
+		/**
+		* PSステージにサンプラステートを設定.
+		*
+		* @param startSlot		開始スロット番号.
+		* @param numSamplers	サンプラ数.
+		* @param sampler		サンプラステートクラス.
+		*/
+		void PSSetSampler(UINT startSlot, UINT numSamplers, SamplerState* sampler);
 
 		/**
 		* サブリソースを更新.
@@ -282,7 +293,8 @@ namespace nkEngine
 
 	private:
 
-		static const int MRT_MAX = 8;	//MRTの最大数.
+		static const int MRT_MAX = 8;	//!< MRTの最大数.
+		static const int SAMPLER_MAX = 10;	//!< サンプラステートの最大数.
 
 		/** D3Dデバイスコンテキスト. */
 		ID3D11DeviceContext* D3DDeviceContext_ = nullptr;
@@ -298,6 +310,10 @@ namespace nkEngine
 		ID3D11DepthStencilView* DepthStencilView_ = nullptr;
 		/** レンダリングターゲットビューの数. */
 		UINT NumRenderTargetView_ = 0;
+
+		/** D3Dサンプラクラス. */
+		ID3D11SamplerState* D3DSamplerList_[SAMPLER_MAX] = { nullptr };
+
 	
 	};
 }

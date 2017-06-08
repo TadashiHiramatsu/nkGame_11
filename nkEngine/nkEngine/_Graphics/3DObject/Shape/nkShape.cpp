@@ -51,9 +51,9 @@ namespace nkEngine
 		Engine().GetRenderContext().IASetInputLayout(VShader_.GetInputLayout());
 
 		VSConstantBufferS vsConstant;
-		vsConstant.WorldMatrix_.Transpose(Transform_->WorldMatrix_);
-		vsConstant.ViewMatrix_.Transpose(Camera_->GetViewMatrix());
-		vsConstant.ProjMatrix_.Transpose(Camera_->GetProjectionMatrix());
+		vsConstant.WorldMatrix_ = Transform_->WorldMatrix_;
+		vsConstant.ViewMatrix_ = Camera_->GetViewMatrix();
+		vsConstant.ProjMatrix_ = Camera_->GetProjectionMatrix();
 		//VSステージの定数バッファを更新.
 		Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
 		//VSステージの定数バッファを設定.
