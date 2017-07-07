@@ -227,6 +227,10 @@ namespace nkEngine
 		{
 			D3DDeviceContext_->VSSetShaderResources(slotNo, 1, &srv.GetBody());
 		}
+		void VSSetShaderResource(int slotNo, ID3D11ShaderResourceView* srv)
+		{
+			D3DDeviceContext_->VSSetShaderResources(slotNo, 1, &srv);
+		}
 
 		/**
 		* PSステージにSRVを設定.
@@ -237,6 +241,10 @@ namespace nkEngine
 		void PSSetShaderResource(int slotNo, ShaderResourceView& srv)
 		{
 			D3DDeviceContext_->PSSetShaderResources(slotNo, 1, &srv.GetBody());
+		}
+		void PSSetShaderResource(int slotNo, ID3D11ShaderResourceView* srv)
+		{
+			D3DDeviceContext_->PSSetShaderResources(slotNo, 1, &srv);
 		}
 
 		/**

@@ -58,6 +58,7 @@ namespace nkEngine
 			hr = DirectX::LoadFromWICFile(filePath, 0, &DXTexMetaData_, DXScratchImage_);
 		}
 
+
 		if (FAILED(hr))
 		{
 			//ì«Ç›çûÇ›é∏îs.

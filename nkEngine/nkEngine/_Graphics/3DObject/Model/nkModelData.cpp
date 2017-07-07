@@ -15,7 +15,7 @@ namespace nkEngine
 	void ModelData::Load(string fileName, Transform* parent)
 	{
 		//メモリ管理クラス.
-		FbxManager* FBXManager = FbxManager::Create();
+		FbxManager* FBXManager = Engine().GetModelManager().GetFBXManager();
 
 		//読み込むためのクラス.
 		FbxImporter* FBXImporter = FbxImporter::Create(FBXManager, "");
@@ -45,7 +45,6 @@ namespace nkEngine
 		ProbeNode(FBXRootNode, parent);
 
 		FBXScene->Destroy();
-		FBXManager->Destroy();
 	}
 
 	/**

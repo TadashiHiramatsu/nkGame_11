@@ -6,6 +6,12 @@
 
 namespace nkEngine
 {
+#ifdef DEBUG
+	namespace
+	{
+		const int PLOT_SIZE = 50;
+	}
+#endif 
 
 	/**
 	* 初期化.
@@ -39,6 +45,13 @@ namespace nkEngine
 		//シャドウマップの作成.
 		ShadowMap_.Create();
 
+#ifdef DEBUG
+		for (int i = 0; i < PLOT_SIZE; i++)
+		{
+			FPSList_.push_back(0.0f);
+		}
+#endif
+
 		return true;
 	}
 
@@ -48,8 +61,6 @@ namespace nkEngine
 	void MainLoop::Update()
 	{
 		Time().Update();
-
-		NK_LOG("FPS:%f\n", Time().GetFPS());
 
 		Input().Update();
 
@@ -66,6 +77,36 @@ namespace nkEngine
 
 		//更新
 		GameObjectManager().Update();
+
+#ifdef DEBUG
+		ImGui::Begin("GameObject");
+		ImGui::SetWindowSize(ImVec2(500.0f, 300.0f));
+		ImGui::Text("Hello");
+		ImGui::End();
+
+		static int frameCount = 0;
+		if (frameCount++ % 10 == 0)
+		{
+			FPSList_.push_back(Time().GetFPS());
+			if (FPSList_.size() > PLOT_SIZE)
+			{
+				FPSList_.erase(FPSList_.begin());
+			}
+		}
+	
+
+		ImGui::Begin("FPS");
+		ImGui::SetWindowSize(ImVec2(100.0f, 100.0f), ImGuiSetCond_FirstUseEver);
+		ImGui::SetWindowPos(ImVec2(0.0f, 0.0f));
+		float FPS = 0.0f;
+		if (FPSList_.size() > 0)
+		{
+			FPS = *(FPSList_.end() - 1);
+		}
+		ImGui::Text(to_string(FPS).c_str());
+		ImGui::PlotLines("FPSグラフ", FPSList_.data(), PLOT_SIZE, 0.0f, nullptr, 0.0f, 120.0f, ImVec2(200.0f, 50.0f));
+		ImGui::End();
+#endif
 
 		//Updateの後の更新
 		GameObjectManager().PostUpdate();
@@ -106,6 +147,11 @@ namespace nkEngine
 		//ポストエフェクトの後の描画
 		GameObjectManager().PostRender();
 
+#ifdef DEBUG
+		//Imguiの描画.
+		ImGui::Render();
+#endif
+
 		//メインレンダリングターゲットの内容をバックバッファにコピー.
 		CopyMainRenderTargetToBackBuffer();
 
@@ -137,7 +183,7 @@ namespace nkEngine
 		Engine().GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&D3DBackBuffer);
 
 		//メインレンダリングターゲットをバックバッファにコピー.
-		Engine().GetRenderContext().CopyResource(D3DBackBuffer,MainRenderTarget_[CurrentMainRenderTarget_].GetRenderTarget());
+		Engine().GetRenderContext().CopyResource(D3DBackBuffer, MainRenderTarget_[CurrentMainRenderTarget_].GetRenderTarget());
 	
 		//バックバッファを解放.
 		D3DBackBuffer->Release();

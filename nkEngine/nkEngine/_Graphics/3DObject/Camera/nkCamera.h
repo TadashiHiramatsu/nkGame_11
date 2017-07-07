@@ -14,6 +14,26 @@ namespace nkEngine
 	public:
 
 		/**
+		* カメラタイプのコード.
+		*/
+		enum class CameraTypeCodeE
+		{
+			FirstPerson = 0,	//!< 1人称カメラ.
+			ThirdPerson,		//!< 3人称カメラ.
+		};
+
+		/**
+		* 計算タイプのコード.
+		*/
+		enum class CalcTypeCodeE
+		{
+			PosTarget,		//!< 視点と注視点.
+			DirDistance,	//!< 視点(注視点)から注視点(視点)方向ベクトルと距離.
+		};
+
+	public:
+
+		/**
 		* コンストラクタ.
 		*/
 		Camera()
@@ -45,14 +65,6 @@ namespace nkEngine
 		* @param angle 回転量(度).
 		*/
 		void SpinVertically(float angle);
-
-		/**
-		* 任意軸回りの回転.
-		*
-		* @param vec	任意の軸.
-		* @param angle	回転量(度).
-		*/
-		void SpinAxis(Vector3& vec, float angle);
 
 		/**
 		* ビュー行列の取得.
@@ -125,23 +137,23 @@ namespace nkEngine
 		}
 
 		/**
-		* カメラの視点方向ベクトルの取得.
+		* カメラの視線ベクトルの取得.
 		*
 		* @return The position direction.
 		*/
-		const Vector3& GetPosDirection() const
+		const Vector3& GetDirection() const
 		{
-			return PosDirection_;
+			return Direction_;
 		}
 
 		/**
-		* カメラの視点方向ベクトルの設定.
+		* カメラの視線ベクトルの設定.
 		*
-		* @param dir 視点ベクトル.
+		* @param dir 視線ベクトル.
 		*/
-		void SetPosDirection(const Vector3& dir)
+		void SetDirection(const Vector3& dir)
 		{
-			PosDirection_ = dir;
+			Direction_ = dir;
 		}
 
 		/**
@@ -284,7 +296,28 @@ namespace nkEngine
 			Far_ = ffar;
 		}
 
+		/**
+		* カメラタイプを設定.
+		*/
+		void SetCameraType(CameraTypeCodeE type)
+		{
+			CameraType_ = type;
+		}
+
+		/**
+		* 計算タイプを設定.
+		*/
+		void SetCalcType(CalcTypeCodeE type)
+		{
+			CalcType_ = type;
+		}
+
 	private:
+
+		/** カメラタイプ. */
+		CameraTypeCodeE CameraType_ = CameraTypeCodeE::ThirdPerson;
+		/** 計算タイプ. */
+		CalcTypeCodeE CalcType_ = CalcTypeCodeE::DirDistance;
 
 		/** ビュー行列. */
 		Matrix ViewMatrix_ = Matrix::Identity;
@@ -304,10 +337,10 @@ namespace nkEngine
 		/** カメラの上方向. */
 		Vector3 Up_ = Vector3::Up;
 
-		/** ポジションの方向ベクトル. */
-		Vector3 PosDirection_ = Vector3::Zero;
+		/** 視線ベクトル. */
+		Vector3 Direction_ = Vector3::Zero;
 		/** 距離. */
-		float Distance_ = 0;
+		float Distance_ = 1.0f;
 
 		/** 画角. */
 		float Angle_ = DirectX::XMConvertToRadians(45.0f);

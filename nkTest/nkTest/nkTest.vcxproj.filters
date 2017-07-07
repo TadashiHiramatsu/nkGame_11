@@ -45,6 +45,9 @@
     <ClCompile Include="Main\GameObject\TestObject.cpp">
       <Filter>Main\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Main\MapObject\MapChip.cpp">
+      <Filter>Main\MapObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Main\GameObject\TestObject.h">
       <Filter>Main\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\MapObject\MapChip.h">
+      <Filter>Main\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

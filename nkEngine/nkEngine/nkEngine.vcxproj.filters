@@ -17,9 +17,6 @@
     <Filter Include="Timer">
       <UniqueIdentifier>{3b138c60-b503-4912-af29-3f47a319b7f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{b38134f4-dd93-4bc0-afcd-90127dc713f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{5c8a53e6-3601-4548-9b44-fe226991c9ec}</UniqueIdentifier>
     </Filter>
@@ -34,9 +31,6 @@
     </Filter>
     <Filter Include="Graphics\3DObject\Camera">
       <UniqueIdentifier>{eaa5251b-c52b-4735-9827-68cbb63db483}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{ef1149a0-d64c-461d-abe1-8dedbf62549f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Graphics\3DObject\Shape">
       <UniqueIdentifier>{199277e1-13ba-499e-9fb6-5e16d7d18cb8}</UniqueIdentifier>
@@ -62,6 +56,24 @@
     <Filter Include="Graphics\UI">
       <UniqueIdentifier>{cdb09f05-3123-43a3-a78d-2658e8f70986}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{93467990-b390-4be8-b11d-38bfe006cd88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject">
+      <UniqueIdentifier>{b38134f4-dd93-4bc0-afcd-90127dc713f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{ef1149a0-d64c-461d-abe1-8dedbf62549f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{754ec86b-151d-448b-bbd1-b722dcb855fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugWindow">
+      <UniqueIdentifier>{f6f5ea82-4264-4ce0-b8bb-92f7e6b74271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugWindow\Imgui">
+      <UniqueIdentifier>{9628ce2f-a0a3-40af-b468-bd9047d6e422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nkEngine.h">
@@ -84,12 +96,6 @@
     </ClInclude>
     <ClInclude Include="_Timer\nkTime.h">
       <Filter>Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="_GameObject\nkGameObjectManager.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="_GameObject\nkGameObject.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="_Scene\nkScene.h">
       <Filter>Scene</Filter>
@@ -126,9 +132,6 @@
     </ClInclude>
     <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h">
       <Filter>Graphics\3DObject\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="_Component\nkTransform.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="_Graphics\Buffer\nkBuffer.h">
       <Filter>Graphics\Buffer</Filter>
@@ -178,9 +181,6 @@
     <ClInclude Include="_Graphics\nkBlur.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="_Graphics\PostEffect\nkSSAO.h">
-      <Filter>Graphics\PostEffect</Filter>
-    </ClInclude>
     <ClInclude Include="_Graphics\nkTexture.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -193,6 +193,54 @@
     <ClInclude Include="_Graphics\nkSamplerState.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBone.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelManager.h">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="_Component\nkTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="_Object\Component\nkComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="_Object\Component\nkComponentManager.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="_Object\GameObject\nkGameObject.h">
+      <Filter>Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="_Object\GameObject\nkGameObjectManager.h">
+      <Filter>Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="_Object\nkObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\imconfig.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\imgui.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\imgui_impl_dx11.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\imgui_internal.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\stb_rect_pack.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\stb_textedit.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Imgui\stb_truetype.h">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nkEngine.cpp">
@@ -203,9 +251,6 @@
     </ClCompile>
     <ClCompile Include="_Graphics\nkRenderContext.cpp">
       <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="_GameObject\nkGameObjectManager.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="_Math\nkVector.cpp">
       <Filter>Math</Filter>
@@ -224,9 +269,6 @@
     </ClCompile>
     <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp">
       <Filter>Graphics\3DObject\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="_Component\nkTransform.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="_Graphics\Buffer\nkConstantBuffer.cpp">
       <Filter>Graphics\Buffer</Filter>
@@ -276,9 +318,6 @@
     <ClCompile Include="_Graphics\nkBlur.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="_Graphics\PostEffect\nkSSAO.cpp">
-      <Filter>Graphics\PostEffect</Filter>
-    </ClCompile>
     <ClCompile Include="_Graphics\nkTexture.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -290,6 +329,45 @@
     </ClCompile>
     <ClCompile Include="_Graphics\nkSamplerState.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBone.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelManager.cpp">
+      <Filter>Graphics\3DObject\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="_Component\nkTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="_Object\Component\nkComponentManager.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="_Object\GameObject\nkGameObjectManager.cpp">
+      <Filter>Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="_Object\nkObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="_Object\GameObject\nkGameObject.cpp">
+      <Filter>Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="_Object\Component\nkComponent.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui.cpp">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp">
+      <Filter>DebugWindow\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp">
+      <Filter>DebugWindow\Imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

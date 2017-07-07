@@ -65,7 +65,7 @@ namespace nkEngine
 		 */
 		void Update()
 		{
-			if (isReady_) 
+			if (isReady_)
 			{
 				sw_.Stop();
 				FrameDeltaTime_ = (float)sw_.GetElapsed();

@@ -12,7 +12,7 @@
 */
 void TestObject::Start()
 {
-	Model_.Init("Building_a",&Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
+	Model_.Init("Building_a",&Transform_, &g_MainLight->GetLight(), &g_MainCamera->GetCamera());
 }
 
 /**

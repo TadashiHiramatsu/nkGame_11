@@ -15,6 +15,7 @@ MainLight* g_MainLight = nullptr;
 #include"GameObject\TestObject.h"
 #include"Player\UnityChan.h"
 #include"MapObject\Ground.h"
+#include"MapObject\MapChip.h"
 
 /**
 * ‰Šú‰».
@@ -27,6 +28,6 @@ void MainScene::Start()
 	NewGO<UnityChan>();
 	NewGO<Ground>();
 
-	//NewGO<TestObject>();
+	//NewGO<MapChip>();
 
 }

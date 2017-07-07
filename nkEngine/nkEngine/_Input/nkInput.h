@@ -35,13 +35,13 @@ namespace nkEngine
 		LONG PosX_;
 		/** マウスのポジション:Y座標. */
 		LONG PosY_;
+		/** マウスのホイール回転量. */
+		LONG Wheel_;
 		/**   
 		 * ボタン. 
 		 * MouseButtonEに準ずる.
 		 */
 		BYTE Button_[(int)MouseButtonE::Button_Num];
-		/** The padding. */
-		BYTE Padding_;
 		
 	};
 
@@ -239,7 +239,7 @@ namespace nkEngine
 		void Release();
 
 		/**
-		 * マウスの移動量を返す.
+		 * マウスの移動量を取得.
 		 */
 		const Vector2& GetMouseMove() const
 		{
@@ -247,11 +247,19 @@ namespace nkEngine
 		}
 
 		/**
-		 * マウスの座標を返す.
+		 * マウスの座標を取得.
 		 */
-		const Vector2& GetMousePosX() const
+		const Vector2& GetMousePos() const
 		{
 			return Vector2(MousePos_.x, MousePos_.y);
+		}
+
+		/**
+		* マウスのホイールの移動量を取得.
+		*/
+		LONG GetMouseWheel() const
+		{
+			return MouseStateBef_.Wheel_ - MouseState_.Wheel_;
 		}
 
 		/**

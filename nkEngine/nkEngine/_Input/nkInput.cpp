@@ -14,15 +14,17 @@ namespace nkEngine
 	{
 		DIOBJECTDATAFORMAT ObjectFormats[] =
 		{
-			{ &GUID_XAxis, FIELD_OFFSET(MouseStateS, PosX_),    // X axis
+			{ &GUID_XAxis, FIELD_OFFSET(MouseStateS, PosX_),	//!< マウスX軸.
 			DIDFT_RELAXIS | DIDFT_ANYINSTANCE, 0 },
-			{ &GUID_YAxis, FIELD_OFFSET(MouseStateS, PosY_),    // Y axis
+			{ &GUID_YAxis, FIELD_OFFSET(MouseStateS, PosY_),    //!< マウスY軸.
 			DIDFT_RELAXIS | DIDFT_ANYINSTANCE, 0 },
-			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[0]),        // Button 0
+			{ &GUID_ZAxis, FIELD_OFFSET(MouseStateS, Wheel_),    //!< マウスホイール.
+			DIDFT_RELAXIS | DIDFT_ANYINSTANCE, 0 },
+			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[0]),	//!< 左クリック.
 			DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 },
-			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[1]),        // Button 1 (optional)
+			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[1]),  //!< 右クリック.
 			DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 },
-			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[2]),        // Button 2 (optional)
+			{ &GUID_Button, FIELD_OFFSET(MouseStateS, Button_[2]),  //ホイール押し込み.
 			DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 }
 		};
 
@@ -36,7 +38,7 @@ namespace nkEngine
 			ObjectFormats
 		};
 
-		DInput_->CreateDevice(GUID_SysMouse, &DInputMouse_, NULL);
+		DInput_->CreateDevice(GUID_SysMouse, &DInputMouse_, nullptr);
 
 		DInputMouse_->SetDataFormat(&dfMouse);
 
@@ -53,7 +55,7 @@ namespace nkEngine
 	 */
 	void InputSingleton::InitKeyboard()
 	{
-		DInput_->CreateDevice(GUID_SysKeyboard,&DInputKeyboard_,NULL);
+		DInput_->CreateDevice(GUID_SysKeyboard,&DInputKeyboard_, nullptr);
 
 		DInputKeyboard_->SetDataFormat(&c_dfDIKeyboard);
 
@@ -75,8 +77,13 @@ namespace nkEngine
 	{
 		HRESULT hr;
 
-		if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION,
-			IID_IDirectInput8, (VOID**)&DInput_, NULL)))
+		hr = DirectInput8Create(
+			GetModuleHandle(nullptr),
+			DIRECTINPUT_VERSION,IID_IDirectInput8, 
+			(VOID**)&DInput_, 
+			nullptr);
+
+		if (FAILED(hr))
 		{
 			return hr;
 		}

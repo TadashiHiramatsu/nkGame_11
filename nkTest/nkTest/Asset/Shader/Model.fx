@@ -7,10 +7,12 @@
 */
 struct VS_IN
 {
-	float4 Pos		: POSITION0;	//!< 座標.
-	float2 Tex		: TEXCOORD0;	//!< UV座標.
-	float3 Normal	: NORMAL;		//!< 法線ベクトル.
-	float3 Tangent	: TANGENT;		//!< 接ベクトル
+	float4 Pos			: POSITION0;	//!< 座標.
+	float2 Tex			: TEXCOORD0;	//!< UV座標.
+	float3 Normal		: NORMAL;		//!< 法線ベクトル.
+	float3 Tangent		: TANGENT;		//!< 接ベクトル
+	//uint   BoneIndex	: BLENDINDICES;	//!< ボーン番号.
+	//float  BoneWeight	: BLENDWEIGHT;	//!< ボーンウェイト.
 };
 
 /**
@@ -157,6 +159,7 @@ float4 PSMain(VS_OUT In) : SV_Target
 		float4 SpecPower = SpecularTexture.Sample(Sampler, In.Tex);
 
 		LightColor += SpecColor * SpecPower;
+
 	}
 
 	//影.

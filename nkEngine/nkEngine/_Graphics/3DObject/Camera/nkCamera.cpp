@@ -18,12 +18,33 @@ namespace nkEngine
 		//プロジェクション行列の計算
 		ProjMatrix_.MakeProjectionFovLH(Angle_, Aspect_, Near_, Far_);
 
-		//ポジション方向の計算
-		PosDirection_.Normalize();
+		if (CalcType_ == CalcTypeCodeE::DirDistance)
+		{
+			//視線ベクトルを正規化.
+			Direction_.Normalize();
+			
+			switch (CameraType_)
+			{
+			case CameraTypeCodeE::FirstPerson:
+				
+				//視点と視線から注視点を計算.
+				Target_.Add(Direction_, Position_);
+				
+				break;
+			case CameraTypeCodeE::ThirdPerson:
 
-		//ポジションの計算
-		PosDirection_.Scale(Distance_);
-		Position_.Add(PosDirection_, Target_);
+				//視線に距離を乗算.
+				Direction_.Scale(Distance_);
+				
+				//逆視線から視点を計算.
+				Position_.Add(Direction_, Target_);
+
+				break;
+			default:
+				break;
+			}
+
+		}
 
 		//ビュー行列の計算
 		ViewMatrix_.MakeLookAtLH(Position_, Target_, Up_);
@@ -49,15 +70,18 @@ namespace nkEngine
 	*/
 	void Camera::SpinHorizontally(float angle)
 	{
-		Matrix tmp = Matrix::Identity;
+		if (CalcType_ == CalcTypeCodeE::DirDistance)
+		{
+			Matrix tmp = Matrix::Identity;
 
-		//行列をY軸回りに回転.
-		tmp.MakeRotationY(angle);
+			//行列をY軸回りに回転.
+			tmp.MakeRotationY(angle);
 
-		PosDirection_.Normalize();
-
-		//ベクトルに反映.
-		PosDirection_.TransformCoord(tmp);
+			//正規化.
+			Direction_.Normalize();
+			//視線ベクトルに反映.
+			Direction_.TransformCoord(tmp);
+		}
 	}
 
 	/**
@@ -67,49 +91,30 @@ namespace nkEngine
 	*/
 	void Camera::SpinVertically(float angle)
 	{
-		//クォータニオン.
-		Quaternion qua = Quaternion::Identity;
-		//回転行列.
-		Matrix tmp = Matrix::Identity;
+		if (CalcType_ == CalcTypeCodeE::DirDistance)
+		{
+			//クォータニオン.
+			Quaternion qua = Quaternion::Identity;
+			//回転行列.
+			Matrix tmp = Matrix::Identity;
 
-		PosDirection_.Normalize();
+			//正規化.
+			Direction_.Normalize();
 
-		//横方向ベクトル.
-		Vector3 side = Vector3::Zero;
-		side.x = -PosDirection_.z;
-		side.z = PosDirection_.x;
+			//横方向ベクトル.
+			Vector3 side = Vector3::Zero;
+			side.x = -Direction_.z;
+			side.z = Direction_.x;
 
-		//クォータニオンを横軸回りに回転.
-		qua.RotationAxis(side, angle);
+			//クォータニオンを横軸回りに回転.
+			qua.RotationAxis(side, angle);
 
-		//行列をクォータニオンにより回転.
-		tmp.MakeRotationQuaternion(qua);
+			//行列をクォータニオンにより回転.
+			tmp.MakeRotationQuaternion(qua);
 
-		//ベクトルに反映.
-		PosDirection_.TransformCoord(tmp);
-	}
-
-	/**
-	* 任意軸回りの回転.
-	*
-	* @param vec	任意の軸.
-	* @param angle	回転量(度).
-	*/
-	void Camera::SpinAxis(Vector3 & vec, float angle)
-	{
-		//クォータニオン.
-		Quaternion qua = Quaternion::Identity;
-		//回転行列.
-		Matrix tmp = Matrix::Identity;
-
-		//クォータニオンを任意軸回りに回転.
-		qua.RotationAxis(vec, angle);
-
-		//行列をクォータニオンにより回転.
-		tmp.MakeRotationQuaternion(qua);
-
-		//ベクトルに反映.
-		PosDirection_.TransformCoord(tmp);
+			//視線ベクトルに反映.
+			Direction_.TransformCoord(tmp);
+		}
 	}
 
 }

@@ -36,7 +36,15 @@ namespace nkEngine
 
 		Input().Init(true, true);
 
+		//モデル管理クラスを初期化.
+		ModelManager_.Init();
+
 		GameObjectManager().StartGOM(10);
+
+#ifdef DEBUG
+		//Imguiの初期化.
+		ImGui_ImplDX11_Init(hWnd_, D3DDevice_, D3DImmediateContext_);
+#endif
 
 		return true;
 	}
@@ -56,6 +64,11 @@ namespace nkEngine
 			}
 			else
 			{
+#ifdef DEBUG
+				//imguiのウィジェットを描画登録する前(ゲームループの初めとか)に↓を記述する
+				ImGui_ImplDX11_NewFrame();
+#endif
+
 				//更新.
 				MainLoop_.Update();
 				//描画.
@@ -136,7 +149,7 @@ namespace nkEngine
 	{
 		UINT createDeviceFlags = 0;
 
-#ifdef _DEBUG //デバック.
+#ifdef DEBUG //デバック.
 		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
@@ -225,6 +238,14 @@ namespace nkEngine
 	{
 		MainLoop_.Release();
 
+		//モデル管理クラスを解放.
+		ModelManager_.Release();
+
+#ifdef DEBUG
+		//Imguiの解放.
+		ImGui_ImplDX11_Shutdown();
+#endif
+
 		if (D3DImmediateContext_)
 		{
 			D3DImmediateContext_->ClearState();
@@ -248,18 +269,26 @@ namespace nkEngine
 	*/
 	LRESULT EngineSingleton::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
+#ifdef DEBUG
+		//マウスで動くようにする.
+		if (ImGui_ImplDX11_WndProcHandler(hWnd, msg, wParam, lParam))
+		{
+			return true;
+		}
+#endif
+
 		switch (msg)
 		{
 		case WM_KEYDOWN: // キーを押したとき
 			switch (wParam)
 			{
-			case VK_ESCAPE://エスケープキー
+			case VK_ESCAPE: // エスケープキー
 				GetInstance().Final();
 				PostQuitMessage(0);
 				return 0;
 			}
 			break;
-		case WM_DESTROY:
+		case WM_DESTROY: // 削除.
 			GetInstance().Final();
 			PostQuitMessage(0);
 			return 0;

@@ -3,9 +3,7 @@
 */
 #include"stdafx.h"
 
-/*****************************************************************************************/
 #include"Main\MainScene.h"
-
 
 /**
 * エンジンの初期化.
@@ -18,8 +16,14 @@ bool InitEngine(HINSTANCE hInstance)
 	initParam.GameName_ = "nkTest";
 	initParam.ScreenBufferW_ = 1200;
 	initParam.ScreenBufferH_ = 675;
-	initParam.FrameBufferW_ = initParam.ScreenBufferW_ * 2;
-	initParam.FrameBufferH_ = initParam.ScreenBufferH_ * 2;
+
+#ifdef DEBUG
+	initParam.FrameBufferW_ = initParam.ScreenBufferW_;
+	initParam.FrameBufferH_ = initParam.ScreenBufferH_;
+#else
+	initParam.FrameBufferW_ = initParam.ScreenBufferW_ * 2.0f;
+	initParam.FrameBufferH_ = initParam.ScreenBufferH_ * 2.0f;
+#endif
 
 	//エンジンの初期化.
 	return Engine().Init(initParam);

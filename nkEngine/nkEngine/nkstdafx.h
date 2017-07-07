@@ -3,8 +3,6 @@
 */
 #pragma once
 
-
-
 #define WIN32_LEAN_AND_MEAN             // Windows ヘッダーから使用されていない部分を除外します。
 
 #define _XM_NO_INTRINSICS_
@@ -55,6 +53,9 @@ using namespace fbxsdk;
 
 #include<DirectXTex\DirectXTex.h>
 
+#include"Imgui\imgui.h"
+#include"Imgui\imgui_impl_dx11.h"
+
 //自作ヘッダインクルード.
 #include"_Debug\nkAssert.h"
 #include"_Debug\nkLog.h"
@@ -67,7 +68,12 @@ using namespace fbxsdk;
 #include"_Graphics\nkColor.h"
 
 #include"_Component\nkTransform.h"
-#include"_GameObject\nkGameObjectManager.h"
+
+#include"_Object\nkObject.h"
+
+#include"_Object\GameObject\nkGameObject.h"
+#include"_Object\GameObject\nkGameObjectManager.h"
+
 #include"_Scene\nkSceneManager.h"
 
 #include"_Graphics\nkRenderContext.h"

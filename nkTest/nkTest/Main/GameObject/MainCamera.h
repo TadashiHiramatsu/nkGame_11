@@ -39,21 +39,17 @@ public:
 	*
 	* @return	カメラクラス.
 	*/
-	Camera* GetCamera()
+	Camera& GetCamera()
 	{
-		return &Camera_;
+		return Camera_;
 	}
 
+private:
+
 	/**
-	* 前方向を取得.
+	* デバック状態の更新.
 	*/
-	const Vector3& GetFront()
-	{
-		Vector3 front;
-		front.Sub(Camera_.GetTarget(), Camera_.GetPosition());
-		front.Normalize();
-		return front;
-	}
+	void DebugUpdate();
 
 private:
 

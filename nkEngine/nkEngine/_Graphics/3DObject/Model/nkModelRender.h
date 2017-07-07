@@ -15,6 +15,14 @@ namespace nkEngine
 	{
 	public:
 
+		enum ShaderResourceCodeE
+		{
+			DiffuseTexture = 0,	//!< ディフューズテクスチャ.
+			NormalTexture,		//!< 法線テクスチャ.
+			SpecularTexture,	//!< スペキュラテクスチャ.
+			ShadowTexture,		//!< 影テクスチャ.
+		};
+
 		/**
 		* VSステージの定数バッファ構造体.
 		*/

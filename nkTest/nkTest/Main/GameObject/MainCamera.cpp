@@ -9,11 +9,14 @@
 */
 void MainCamera::Start()
 {
-	//カメラの視点の方向を設定.
-	Camera_.SetPosDirection(Vector3(0.0f, 0.5f, -1.0f));
+	//1人称カメラに設定.
+	Camera_.SetCameraType(Camera::CameraTypeCodeE::FirstPerson);
 
-	//カメラの注視点を設定.
-	Camera_.SetTarget(Vector3(0.0f, 0.0f, 0.0f));
+	//カメラの視線ベクトルを設定.
+	Camera_.SetDirection(Vector3::Front);
+
+	//カメラの視点を設定.
+	Camera_.SetPosition(Vector3(0.0f, 1.0f, -1.0f));
 
 	Distance_ = 10;
 	Camera_.SetDistance(Distance_);
@@ -30,23 +33,62 @@ void MainCamera::Start()
 */
 void MainCamera::Update()
 {
-	if(Input().GetKeyButton(KeyCodeE::Up))
+	//デバック状態の更新.
+	DebugUpdate();
+}
+
+/**
+* デバック状態の更新.
+*/
+void MainCamera::DebugUpdate()
+{
+
+	//カメラの視線ベクトル.
+	Vector3 direction = Camera_.GetDirection();
+	direction.Normalize();
+
+	//カメラの視点.
+	Vector3 position = Camera_.GetPosition();
+
+	//ホイールの力.
+	float wheelPower = Input().GetMouseWheel();
+	wheelPower *= 0.01f;
+
+	//1秒間の移動速度.
+	static float SPEED = 2.0f;
+	Vector3 wheelMove = direction;
+	wheelMove.Scale(wheelPower * SPEED * Time().DeltaTime() * -1);
+	position.Add(wheelMove);
+
+	Vector2 mouseMove = Input().GetMouseMove();
+
+	if (Input().GetMoudeButton(MouseButtonE::Wheel))
 	{
-		Camera_.SpinVertically(-1);
+		//横.
+		Vector3 side = Vector3(direction.z, 0.0f, -direction.x);
+		//縦.
+		Vector3 hei;
+		hei.Cross(side, direction);
+
+		Vector3 move = Vector3::Zero;
+
+		side.Scale(mouseMove.x);
+		hei.Scale(mouseMove.y);
+
+		move.Add(side, hei);
+
+		move.Scale(Time().DeltaTime() * 0.5f);
+		position.Add(move);
 	}
-	if (Input().GetKeyButton(KeyCodeE::Down))
+	if (Input().GetMoudeButton(MouseButtonE::Right))
 	{
-		Camera_.SpinVertically(1);
-	}
-	if (Input().GetKeyButton(KeyCodeE::Left))
-	{
-		Camera_.SpinHorizontally(-1);
-	}
-	if (Input().GetKeyButton(KeyCodeE::Right))
-	{
-		Camera_.SpinHorizontally(1);
+		static float SPIN_SPEED = 3.0f;
+		Camera_.SpinHorizontally(-mouseMove.x * Time().DeltaTime() * SPIN_SPEED);
+		Camera_.SpinVertically(mouseMove.y * Time().DeltaTime() * SPIN_SPEED);
 	}
 
-	//カメラの更新.
+	Camera_.SetPosition(position);
+
+	//カメラクラスの更新.
 	Camera_.Update();
 }

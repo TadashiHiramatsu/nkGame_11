@@ -5,6 +5,7 @@
 
 #include"ModelData\nkMesh.h"
 #include"ModelData\nkMaterial.h"
+#include"ModelData\nkSkeleton.h"
 
 namespace nkEngine
 {

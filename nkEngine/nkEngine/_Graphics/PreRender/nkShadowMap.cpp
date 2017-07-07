@@ -42,7 +42,7 @@ namespace nkEngine
 		Blur_.Create(w, h, ShadowMapRT_.GetRenderTargetSRV());
 
 		//シャドウエリアを設定.
-		ShadowArea_ = Vector2(20.0f, 20.0f);
+		ShadowArea_ = Vector2(10.0f, 10.0f);
 
 		//頂点シェーダーをロード。
 		VShader_.Load("ShadowMap", "VSShadowMap", Shader::TypeE::VS);
@@ -97,7 +97,7 @@ namespace nkEngine
 			Engine().GetRenderContext().OMSetRenderTarget(1, &ShadowMapRT_);
 		
 			//レンダリングターゲットビューの0番目をクリア.
-			float clearColor[4] = { 0.0f,1.0f,1.0f,1.0f };
+			float clearColor[4] = { 0.0f,0.0f,0.0f,1.0f };
 			Engine().GetRenderContext().ClearRenderTargetView(0, clearColor);
 			Engine().GetRenderContext().ClearDepthStencilView(D3D11_CLEAR_DEPTH);
 			

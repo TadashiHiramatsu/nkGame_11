@@ -93,24 +93,33 @@ namespace nkEngine
 			//VSステージの定数バッファを設定.
 			Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
 
-
 			//シャドウテクスチャを設定.
-			Engine().GetRenderContext().PSSetShaderResource(3, Engine().GetShadowMap().GetShadowMapSRV());
+			Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::ShadowTexture, Engine().GetShadowMap().GetShadowMapSRV());
 
 			if (it->GetMaterialNum() != -1)
 			{
-				Engine().GetRenderContext().PSSetShaderResource(0, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetTextureSRV());
+				Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetTextureSRV());
 
 				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isNormalMap())
 				{
-					Engine().GetRenderContext().PSSetShaderResource(1, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetNormalTextureSRV());
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetNormalTextureSRV());
 					psConstant.EffectFlag_.x = 1.0f;
+				}
+				else
+				{
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, nullptr);
+					psConstant.EffectFlag_.x = 0.0f;
 				}
 
 				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isSpecularMap())
 				{
-					Engine().GetRenderContext().PSSetShaderResource(2, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetSpecularTextureSRV());
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetSpecularTextureSRV());
 					psConstant.EffectFlag_.y = 1.0f;
+				}
+				else
+				{
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, nullptr);
+					psConstant.EffectFlag_.y = 0.0f;
 				}
 			}
 
@@ -118,8 +127,6 @@ namespace nkEngine
 			Engine().GetRenderContext().UpdateSubresource(PSConstantBuffer_, psConstant);
 			//VSステージの定数バッファを設定.
 			Engine().GetRenderContext().PSSetConstantBuffer(0, PSConstantBuffer_);
-
-	
 
 			//メッシュ描画.
 			it->Render();

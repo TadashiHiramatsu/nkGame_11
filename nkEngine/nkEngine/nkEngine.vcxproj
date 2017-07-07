@@ -49,7 +49,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -76,6 +76,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;C:\Github\nkGame_11\nkEngine\nkEngine\DirectXTex\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\release;C:\Github\nkGame_11\nkEngine\nkEngine\DirectXTex\Bin\Desktop_2015\x64\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,27 +134,41 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>nkstdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;dinput8.lib;Xinput.lib;libfbxsdk-mt.lib;DirectXTex.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="nkEngine.h" />
     <ClInclude Include="nkMainLoop.h" />
     <ClInclude Include="nkstdafx.h" />
     <ClInclude Include="_Component\nkTransform.h" />
+    <ClInclude Include="_DebugWindow\Imgui\imconfig.h" />
+    <ClInclude Include="_DebugWindow\Imgui\imgui.h" />
+    <ClInclude Include="_DebugWindow\Imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="_DebugWindow\Imgui\imgui_internal.h" />
+    <ClInclude Include="_DebugWindow\Imgui\stb_rect_pack.h" />
+    <ClInclude Include="_DebugWindow\Imgui\stb_textedit.h" />
+    <ClInclude Include="_DebugWindow\Imgui\stb_truetype.h" />
     <ClInclude Include="_Debug\nkAssert.h" />
     <ClInclude Include="_Debug\nkLog.h" />
-    <ClInclude Include="_GameObject\nkGameObject.h" />
-    <ClInclude Include="_GameObject\nkGameObjectManager.h" />
     <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBone.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMaterial.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\nkModelManager.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h" />
     <ClInclude Include="_Graphics\3DObject\nkLight.h" />
     <ClInclude Include="_Graphics\3DObject\Shape\nkBoxShape.h" />
@@ -166,7 +184,6 @@
     <ClInclude Include="_Graphics\nkSamplerState.h" />
     <ClInclude Include="_Graphics\nkShader.h" />
     <ClInclude Include="_Graphics\nkTexture.h" />
-    <ClInclude Include="_Graphics\PostEffect\nkSSAO.h" />
     <ClInclude Include="_Graphics\PreRender\nkShadowMap.h" />
     <ClInclude Include="_Graphics\UI\nkImage.h" />
     <ClInclude Include="_Graphics\View\nkShaderResourceView.h" />
@@ -176,6 +193,11 @@
     <ClInclude Include="_Math\nkMatrix.h" />
     <ClInclude Include="_Math\nkRandom.h" />
     <ClInclude Include="_Math\nkVector.h" />
+    <ClInclude Include="_Object\Component\nkComponent.h" />
+    <ClInclude Include="_Object\Component\nkComponentManager.h" />
+    <ClInclude Include="_Object\GameObject\nkGameObject.h" />
+    <ClInclude Include="_Object\GameObject\nkGameObjectManager.h" />
+    <ClInclude Include="_Object\nkObject.h" />
     <ClInclude Include="_Policy\nkNoncopyable.h" />
     <ClInclude Include="_Policy\nkScopedResource.h" />
     <ClInclude Include="_Scene\nkScene.h" />
@@ -194,11 +216,17 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nkstdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="_Component\nkTransform.cpp" />
-    <ClCompile Include="_GameObject\nkGameObjectManager.cpp" />
+    <ClCompile Include="_DebugWindow\Imgui\imgui.cpp" />
+    <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBone.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMaterial.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\nkModelManager.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp" />
     <ClCompile Include="_Graphics\3DObject\nkLight.cpp" />
     <ClCompile Include="_Graphics\3DObject\Shape\nkBoxShape.cpp" />
@@ -214,7 +242,6 @@
     <ClCompile Include="_Graphics\nkSamplerState.cpp" />
     <ClCompile Include="_Graphics\nkShader.cpp" />
     <ClCompile Include="_Graphics\nkTexture.cpp" />
-    <ClCompile Include="_Graphics\PostEffect\nkSSAO.cpp" />
     <ClCompile Include="_Graphics\PreRender\nkShadowMap.cpp" />
     <ClCompile Include="_Graphics\UI\nkImage.cpp" />
     <ClCompile Include="_Graphics\View\nkShaderResourceView.cpp" />
@@ -222,6 +249,11 @@
     <ClCompile Include="_Input\nkXinput.cpp" />
     <ClCompile Include="_Math\nkMatrix.cpp" />
     <ClCompile Include="_Math\nkVector.cpp" />
+    <ClCompile Include="_Object\Component\nkComponent.cpp" />
+    <ClCompile Include="_Object\Component\nkComponentManager.cpp" />
+    <ClCompile Include="_Object\GameObject\nkGameObject.cpp" />
+    <ClCompile Include="_Object\GameObject\nkGameObjectManager.cpp" />
+    <ClCompile Include="_Object\nkObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

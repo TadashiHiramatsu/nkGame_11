@@ -12,7 +12,7 @@
 */
 void UnityChan::Start()
 {
-	ModelRender_.Init("UnityChan", &Transform_, &g_MainLight->GetLight(), g_MainCamera->GetCamera());
+	ModelRender_.Init("UnityChan", &Transform_, &g_MainLight->GetLight(), &g_MainCamera->GetCamera());
 }
 
 /**

@@ -5,6 +5,8 @@
 
 #include"nkMainLoop.h"
 
+#include"_Graphics\3DObject\Model\nkModelManager.h"
+
 namespace nkEngine
 {
 	/** レンダリングコンテキスト. */
@@ -153,6 +155,14 @@ namespace nkEngine
 			return MainLoop_.ShadowMap_;
 		}
 
+		/**
+		* モデル管理クラスを取得.
+		*/
+		ModelManager& GetModelManager()
+		{
+			return ModelManager_;
+		}
+
 	private:
 
 		/**
@@ -201,6 +211,9 @@ namespace nkEngine
 
 		/** メインループクラス. */
 		MainLoop MainLoop_;
+
+		/** モデル管理クラス. */
+		ModelManager ModelManager_;
 		
 		/** フレームバッファの幅.内部解像度. */
 		int FrameBufferW_ = 0;
@@ -222,3 +235,7 @@ namespace nkEngine
 	}
 
 }
+
+#ifdef DEBUG
+extern IMGUI_API LRESULT   ImGui_ImplDX11_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+#endif
