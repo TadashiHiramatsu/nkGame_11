@@ -163,6 +163,14 @@ namespace nkEngine
 			return ModelManager_;
 		}
 
+		/**
+		* デバッグウィンドウ管理クラスを取得.
+		*/
+		DebugWindowManager& GetDebugWindowManager()
+		{
+			return DebugWindowManager_;
+		}
+
 	private:
 
 		/**
@@ -223,6 +231,9 @@ namespace nkEngine
 		int ScreenBufferW_ = 0;
 		/** スクリーンバッファの高さ. */
 		int ScreenBufferH_ = 0;
+
+		/** デバッグウィンドウ管理クラス. */
+		DebugWindowManager DebugWindowManager_;
 	
 	};
 
@@ -235,7 +246,3 @@ namespace nkEngine
 	}
 
 }
-
-#ifdef DEBUG
-extern IMGUI_API LRESULT   ImGui_ImplDX11_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-#endif

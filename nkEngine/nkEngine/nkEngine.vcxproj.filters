@@ -71,8 +71,11 @@
     <Filter Include="DebugWindow">
       <UniqueIdentifier>{f6f5ea82-4264-4ce0-b8bb-92f7e6b74271}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DebugWindow\Imgui">
-      <UniqueIdentifier>{9628ce2f-a0a3-40af-b468-bd9047d6e422}</UniqueIdentifier>
+    <Filter Include="DebugWindow\ImGui">
+      <UniqueIdentifier>{f463c06b-88b1-418f-8130-32d2195dec8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugWindow\Base">
+      <UniqueIdentifier>{fd883bd4-cb8b-4984-9f62-0bd1b3d548cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,12 +196,6 @@
     <ClInclude Include="_Graphics\nkSamplerState.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBone.h">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
-    </ClInclude>
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
-    </ClInclude>
     <ClInclude Include="_Graphics\3DObject\Model\nkModelManager.h">
       <Filter>Graphics\3DObject\Model</Filter>
     </ClInclude>
@@ -221,25 +218,37 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\imconfig.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\imgui.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\imgui_impl_dx11.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\imgui_internal.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\stb_rect_pack.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\stb_textedit.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="_DebugWindow\Imgui\stb_truetype.h">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\nkGameObjectWindow.h">
+      <Filter>DebugWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\nkFPSWindow.h">
+      <Filter>DebugWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Base\nkDebugWindow.h">
+      <Filter>DebugWindow\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="_DebugWindow\Base\nkDebugWindowManager.h">
+      <Filter>DebugWindow\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,12 +339,6 @@
     <ClCompile Include="_Graphics\nkSamplerState.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBone.cpp">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
-    </ClCompile>
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
-    </ClCompile>
     <ClCompile Include="_Graphics\3DObject\Model\nkModelManager.cpp">
       <Filter>Graphics\3DObject\Model</Filter>
     </ClCompile>
@@ -358,16 +361,28 @@
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui.cpp">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp">
-      <Filter>DebugWindow\Imgui</Filter>
+      <Filter>DebugWindow\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\nkGameObjectWindow.cpp">
+      <Filter>DebugWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\nkFPSWindow.cpp">
+      <Filter>DebugWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Base\nkDebugWindowManager.cpp">
+      <Filter>DebugWindow\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Base\nkDebugWindow.cpp">
+      <Filter>DebugWindow\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

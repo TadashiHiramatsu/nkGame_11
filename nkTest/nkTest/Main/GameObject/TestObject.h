@@ -10,7 +10,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	TestObject()
+	TestObject(string name) : 
+		IGameObject(name)
 	{
 	}
 

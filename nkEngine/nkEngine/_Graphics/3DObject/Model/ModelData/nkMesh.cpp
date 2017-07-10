@@ -356,299 +356,299 @@ namespace nkEngine
 
 
 
-	void Mesh::CreateSkeletonBuffer(FbxMesh * fbxMesh)
-	{
-		//頂点バッファの作成.
-		//頂点数.
-		VertexCount_ = fbxMesh->GetControlPointsCount();
-		//頂点バッファのソースデータ。
-		VertexBuffer_SkeletonS* vertexTmp = new VertexBuffer_SkeletonS[VertexCount_];
-		vector<VertexBuffer_SkeletonS> VERTEX_TMP_LIST;
-		VERTEX_TMP_LIST.resize(VertexCount_);
+	//void Mesh::CreateSkeletonBuffer(FbxMesh * fbxMesh)
+	//{
+	//	//頂点バッファの作成.
+	//	//頂点数.
+	//	VertexCount_ = fbxMesh->GetControlPointsCount();
+	//	//頂点バッファのソースデータ。
+	//	VertexBuffer_SkeletonS* vertexTmp = new VertexBuffer_SkeletonS[VertexCount_];
+	//	vector<VertexBuffer_SkeletonS> VERTEX_TMP_LIST;
+	//	VERTEX_TMP_LIST.resize(VertexCount_);
 
-		Matrix mTmp = Matrix::FbxToMatrix(fbxMesh->GetNode()->EvaluateGlobalTransform());
+	//	Matrix mTmp = Matrix::FbxToMatrix(fbxMesh->GetNode()->EvaluateGlobalTransform());
 
-		//頂点の読み取り.
-		for (int i = 0; i < VertexCount_; i++)
-		{
-			FbxVector4 FBXVertex = fbxMesh->GetControlPointAt(i);
+	//	//頂点の読み取り.
+	//	for (int i = 0; i < VertexCount_; i++)
+	//	{
+	//		FbxVector4 FBXVertex = fbxMesh->GetControlPointAt(i);
 
-			Vector3 Pos = Vector3((float)FBXVertex[0], (float)FBXVertex[1], (float)FBXVertex[2]);
-			Pos.TransformCoord(mTmp);
-			vertexTmp[i].Pos.x = Pos.x;
-			vertexTmp[i].Pos.y = Pos.y;
-			vertexTmp[i].Pos.z = Pos.z;
-			vertexTmp[i].Pos.w = 1.0f;
-			VERTEX_TMP_LIST[i].Pos = Vector4(Pos.x, Pos.y, Pos.z, 1.0f);
-		}
+	//		Vector3 Pos = Vector3((float)FBXVertex[0], (float)FBXVertex[1], (float)FBXVertex[2]);
+	//		Pos.TransformCoord(mTmp);
+	//		vertexTmp[i].Pos.x = Pos.x;
+	//		vertexTmp[i].Pos.y = Pos.y;
+	//		vertexTmp[i].Pos.z = Pos.z;
+	//		vertexTmp[i].Pos.w = 1.0f;
+	//		VERTEX_TMP_LIST[i].Pos = Vector4(Pos.x, Pos.y, Pos.z, 1.0f);
+	//	}
 
-		//インデックスバッファの作成.
-		int indexCount = 0;
+	//	//インデックスバッファの作成.
+	//	int indexCount = 0;
 
-		int polygonCount = fbxMesh->GetPolygonCount();
+	//	int polygonCount = fbxMesh->GetPolygonCount();
 
-		for (int i = 0; i < polygonCount; i++)
-		{
-			int polygonSize = fbxMesh->GetPolygonSize(i);
+	//	for (int i = 0; i < polygonCount; i++)
+	//	{
+	//		int polygonSize = fbxMesh->GetPolygonSize(i);
 
-			switch (polygonSize)
-			{
-			case 3:
-				indexCount += 3;
-				break;
-			case 4:
-				indexCount += 6;
-				break;
-			default:
-				break;
-			}
-		}
+	//		switch (polygonSize)
+	//		{
+	//		case 3:
+	//			indexCount += 3;
+	//			break;
+	//		case 4:
+	//			indexCount += 6;
+	//			break;
+	//		default:
+	//			break;
+	//		}
+	//	}
 
-		USHORT* index = new USHORT[indexCount];
-		vector<USHORT> INDEXLIST;
-		INDEXLIST.resize(indexCount);
+	//	USHORT* index = new USHORT[indexCount];
+	//	vector<USHORT> INDEXLIST;
+	//	INDEXLIST.resize(indexCount);
 
-		UINT Index = 0;
-		for (int i = 0; i < polygonCount; i++)
-		{
-			// 1ポリゴン内の頂点数を取得
-			int lPolygonSize = fbxMesh->GetPolygonSize(i);
+	//	UINT Index = 0;
+	//	for (int i = 0; i < polygonCount; i++)
+	//	{
+	//		// 1ポリゴン内の頂点数を取得
+	//		int lPolygonSize = fbxMesh->GetPolygonSize(i);
 
-			switch (lPolygonSize)
-			{
-			case 3:  // 三角ポリゴン
-				for (int j = 0; j < 3; j++)
-				{
-					// コントロールポイントのインデックスを取得
-					index[Index] = fbxMesh->GetPolygonVertex(i, j);
-					INDEXLIST[Index] = fbxMesh->GetPolygonVertex(i, j);
-					Index++;
-				}
-				break;
-			case 4: // 四角ポリゴン
-				for (int j = 0; j < 6; j++)
-				{
-					// コントロールポイントのインデックスを取得
-					index[Index] = fbxMesh->GetPolygonVertex(i, IndexArray[j]);
-					INDEXLIST[Index] = fbxMesh->GetPolygonVertex(i, IndexArray[j]);
-					Index++;
-				}
-				break;
-			}
-		}
+	//		switch (lPolygonSize)
+	//		{
+	//		case 3:  // 三角ポリゴン
+	//			for (int j = 0; j < 3; j++)
+	//			{
+	//				// コントロールポイントのインデックスを取得
+	//				index[Index] = fbxMesh->GetPolygonVertex(i, j);
+	//				INDEXLIST[Index] = fbxMesh->GetPolygonVertex(i, j);
+	//				Index++;
+	//			}
+	//			break;
+	//		case 4: // 四角ポリゴン
+	//			for (int j = 0; j < 6; j++)
+	//			{
+	//				// コントロールポイントのインデックスを取得
+	//				index[Index] = fbxMesh->GetPolygonVertex(i, IndexArray[j]);
+	//				INDEXLIST[Index] = fbxMesh->GetPolygonVertex(i, IndexArray[j]);
+	//				Index++;
+	//			}
+	//			break;
+	//		}
+	//	}
 
-		for (int i = 0; i < indexCount;)
-		{
-			Vector3 Pos_0 = Vector3(vertexTmp[index[i]].Pos.x, vertexTmp[index[i]].Pos.y, vertexTmp[index[i]].Pos.z);
-			Vector3 Pos_1 = Vector3(vertexTmp[index[i + 1]].Pos.x, vertexTmp[index[i + 1]].Pos.y, vertexTmp[index[i + 1]].Pos.z);
-			Vector3 Pos_2 = Vector3(vertexTmp[index[i + 2]].Pos.x, vertexTmp[index[i + 2]].Pos.y, vertexTmp[index[i + 2]].Pos.z);
+	//	for (int i = 0; i < indexCount;)
+	//	{
+	//		Vector3 Pos_0 = Vector3(vertexTmp[index[i]].Pos.x, vertexTmp[index[i]].Pos.y, vertexTmp[index[i]].Pos.z);
+	//		Vector3 Pos_1 = Vector3(vertexTmp[index[i + 1]].Pos.x, vertexTmp[index[i + 1]].Pos.y, vertexTmp[index[i + 1]].Pos.z);
+	//		Vector3 Pos_2 = Vector3(vertexTmp[index[i + 2]].Pos.x, vertexTmp[index[i + 2]].Pos.y, vertexTmp[index[i + 2]].Pos.z);
 
-			Vector3 Pos0To1, Pos0To2;
-			Pos0To1.Sub(Pos_1, Pos_0);
-			Pos0To2.Sub(Pos_2, Pos_0);
+	//		Vector3 Pos0To1, Pos0To2;
+	//		Pos0To1.Sub(Pos_1, Pos_0);
+	//		Pos0To2.Sub(Pos_2, Pos_0);
 
-			Vector3 Normal;
-			Normal.Cross(Pos0To1, Pos0To2);
+	//		Vector3 Normal;
+	//		Normal.Cross(Pos0To1, Pos0To2);
 
-			vertexTmp[index[i]].Normal.Add(Normal);
-			vertexTmp[index[i + 1]].Normal.Add(Normal);
-			vertexTmp[index[i + 2]].Normal.Add(Normal);
+	//		vertexTmp[index[i]].Normal.Add(Normal);
+	//		vertexTmp[index[i + 1]].Normal.Add(Normal);
+	//		vertexTmp[index[i + 2]].Normal.Add(Normal);
 
-			VERTEX_TMP_LIST[index[i]].Normal.Add(Normal);
-			VERTEX_TMP_LIST[index[i + 1]].Normal.Add(Normal);
-			VERTEX_TMP_LIST[index[i + 2]].Normal.Add(Normal);
+	//		VERTEX_TMP_LIST[index[i]].Normal.Add(Normal);
+	//		VERTEX_TMP_LIST[index[i + 1]].Normal.Add(Normal);
+	//		VERTEX_TMP_LIST[index[i + 2]].Normal.Add(Normal);
 
-			i += 3;
-		}
+	//		i += 3;
+	//	}
 
-		FbxSkin* FBXSkin = nullptr;
-		UINT deformerCount = fbxMesh->GetDeformerCount();
-		for (int i = 0; i < deformerCount; i++)
-		{
-			FbxDeformer* FBXDeformer = fbxMesh->GetDeformer(i);
-			if (FBXDeformer->GetDeformerType() == FbxDeformer::eSkin)
-			{
-				//FBXスキンクラスにダウンキャスト.
-				FBXSkin = (FbxSkin*)FBXDeformer;
-			}
-		}
+	//	FbxSkin* FBXSkin = nullptr;
+	//	UINT deformerCount = fbxMesh->GetDeformerCount();
+	//	for (int i = 0; i < deformerCount; i++)
+	//	{
+	//		FbxDeformer* FBXDeformer = fbxMesh->GetDeformer(i);
+	//		if (FBXDeformer->GetDeformerType() == FbxDeformer::eSkin)
+	//		{
+	//			//FBXスキンクラスにダウンキャスト.
+	//			FBXSkin = (FbxSkin*)FBXDeformer;
+	//		}
+	//	}
 
-		vector<VertexBoneS> VertexBoneList;
-		VertexBoneList.resize(VertexCount_);
-		int BoneCount = 0;
+	//	vector<VertexBoneS> VertexBoneList;
+	//	VertexBoneList.resize(VertexCount_);
+	//	int BoneCount = 0;
 
-		if (FBXSkin != nullptr)
-		{
-			//ボーン数.
-			int boneCount = FBXSkin->GetClusterCount();
-			for (int i = 0; i < boneCount; i++)
-			{
-				FbxCluster* FBXBone = FBXSkin->GetCluster(i);
+	//	if (FBXSkin != nullptr)
+	//	{
+	//		//ボーン数.
+	//		int boneCount = FBXSkin->GetClusterCount();
+	//		for (int i = 0; i < boneCount; i++)
+	//		{
+	//			FbxCluster* FBXBone = FBXSkin->GetCluster(i);
 
-				switch (FBXBone->GetLinkMode())
-				{
-				case FbxCluster::eNormalize:
-					/**
-					* ウェイトの合計が1.0になってるってよ.
-					*/
-				{
-					//このボーンによって移動する頂点の数.
-					int boneIndexCount = FBXBone->GetControlPointIndicesCount();
+	//			switch (FBXBone->GetLinkMode())
+	//			{
+	//			case FbxCluster::eNormalize:
+	//				/**
+	//				* ウェイトの合計が1.0になってるってよ.
+	//				*/
+	//			{
+	//				//このボーンによって移動する頂点の数.
+	//				int boneIndexCount = FBXBone->GetControlPointIndicesCount();
 
-					int* boneIndex = FBXBone->GetControlPointIndices();
+	//				int* boneIndex = FBXBone->GetControlPointIndices();
 
-					double* boneWeight = FBXBone->GetControlPointWeights();
+	//				double* boneWeight = FBXBone->GetControlPointWeights();
 
-					for (int j = 0; j < boneIndexCount; j++)
-					{
-						VertexBoneList[boneIndex[j]].BoneIndex_.push_back(BoneCount);
-						VertexBoneList[boneIndex[j]].BoneWeight_.push_back(boneWeight[j]);
-					}
-				}
-				break;
-				case FbxCluster::eAdditive:
-				{
-					NK_ASSERT(false, "eAdditive未実装.");
-				}
-				break;
-				case FbxCluster::eTotalOne:
-				{
-					NK_ASSERT(false, "eTotalOne未実装.");
-				}
-				break;
-				}
+	//				for (int j = 0; j < boneIndexCount; j++)
+	//				{
+	//					VertexBoneList[boneIndex[j]].BoneIndex_.push_back(BoneCount);
+	//					VertexBoneList[boneIndex[j]].BoneWeight_.push_back(boneWeight[j]);
+	//				}
+	//			}
+	//			break;
+	//			case FbxCluster::eAdditive:
+	//			{
+	//				NK_ASSERT(false, "eAdditive未実装.");
+	//			}
+	//			break;
+	//			case FbxCluster::eTotalOne:
+	//			{
+	//				NK_ASSERT(false, "eTotalOne未実装.");
+	//			}
+	//			break;
+	//			}
 
-				BoneCount++;
-			}
-		}
-
-
-		//頂点数.
-		VertexCount_ = indexCount;
-		//頂点バッファのソースデータ。
-		VertexBuffer_SkeletonS* vertex = new VertexBuffer_SkeletonS[VertexCount_];
-
-		for (int i = 0; i < indexCount; i++)
-		{
-			vertex[i].Pos = vertexTmp[index[i]].Pos;
-			vertex[i].Normal = vertexTmp[index[i]].Normal;
-			for (int bone = 0; bone < 4; bone++)
-			{
-				vertex[i].BoneIndex_[bone] = vertexTmp[index[i]].BoneIndex_[bone];
-				vertex[i].BoneWeight_[bone] = vertexTmp[index[i]].BoneWeight_[bone];
-			}
-		}
-
-		delete[] vertexTmp;
-		vertexTmp = nullptr;
-
-		//UV座標を設定.
-		FbxLayerElementUV* FBXLayerUV = fbxMesh->GetLayer(0)->GetUVs();
-
-		if (FBXLayerUV)
-		{
-			if (FBXLayerUV->GetMappingMode() == FbxLayerElement::eByPolygonVertex)
-			{
-				if (FBXLayerUV->GetReferenceMode() == FbxLayerElement::eIndexToDirect)
-				{
-					int uvIndex = 0;
-					int offset = 0;
-					for (int i = 0; i < polygonCount; i++)
-					{
-						// 1ポリゴン内の頂点数を取得
-						int lPolygonSize = fbxMesh->GetPolygonSize(i);
-						switch (lPolygonSize)
-						{
-						case 3:
-						{
-							for (int j = 0; j < 3; j++)
-							{
-								int index = FBXLayerUV->GetIndexArray().GetAt(j + offset);
-								FbxVector2 FBXTex = FBXLayerUV->GetDirectArray().GetAt(index);
-								vertex[uvIndex].Tex = Vector2(FBXTex[0], 1.0f - FBXTex[1]);
-								uvIndex++;
-							}
-						}
-						break;
-						case 4:
-						{
-							for (int j = 0; j < 6; j++)
-							{
-								int index = FBXLayerUV->GetIndexArray().GetAt(IndexArray[j] + offset);
-								FbxVector2 FBXTex = FBXLayerUV->GetDirectArray().GetAt(index);
-								vertex[uvIndex].Tex = Vector2(FBXTex[0], 1.0f - FBXTex[1]);
-								uvIndex++;
-							}
-						}
-						break;
-						}
-						offset += lPolygonSize;
-					}
-				}
-			}
-			else if (FBXLayerUV->GetMappingMode() == FbxLayerElement::eByControlPoint)
-			{
-				if (FBXLayerUV->GetReferenceMode() == FbxLayerElement::eDirect)
-				{
-					NK_ASSERT(false, "eDirect未実装");
-					/*for (int i = 0; i < VertexCount_; i++)
-					{
-					FbxVector2 tex = FBXLayerUV->GetDirectArray().GetAt(i);
-					vertex[i].Tex = Vector2(tex[0], 1.0f - tex[1]);
-					}*/
-				}
-			}
-
-			UVSetName_ = FBXLayerUV->GetName();
-		}
+	//			BoneCount++;
+	//		}
+	//	}
 
 
-		//接ベクトルを求める.
-		for (int i = 0; i < VertexCount_;)
-		{
-			Vector3 CP0[3] =
-			{
-				Vector3(vertex[i].Pos.x, vertex[i].Tex.x, vertex[i].Tex.y),
-				Vector3(vertex[i].Pos.y, vertex[i].Tex.x, vertex[i].Tex.y),
-				Vector3(vertex[i].Pos.z, vertex[i].Tex.x, vertex[i].Tex.y),
-			};
-			Vector3 CP1[3] =
-			{
-				Vector3(vertex[i + 1].Pos.x, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
-				Vector3(vertex[i + 1].Pos.y, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
-				Vector3(vertex[i + 1].Pos.z, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
-			};
-			Vector3 CP2[3] =
-			{
-				Vector3(vertex[i + 2].Pos.x, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
-				Vector3(vertex[i + 2].Pos.y, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
-				Vector3(vertex[i + 2].Pos.z, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
-			};
+	//	//頂点数.
+	//	VertexCount_ = indexCount;
+	//	//頂点バッファのソースデータ。
+	//	VertexBuffer_SkeletonS* vertex = new VertexBuffer_SkeletonS[VertexCount_];
 
-			//接ベクトル.
-			float U[3];
-			for (int j = 0; j < 3; j++)
-			{
-				Vector3 V1, V2, ABC;
-				V1.Sub(CP1[j], CP0[j]);
-				V2.Sub(CP2[j], CP1[j]);
+	//	for (int i = 0; i < indexCount; i++)
+	//	{
+	//		vertex[i].Pos = vertexTmp[index[i]].Pos;
+	//		vertex[i].Normal = vertexTmp[index[i]].Normal;
+	//		for (int bone = 0; bone < 4; bone++)
+	//		{
+	//			vertex[i].BoneIndex_[bone] = vertexTmp[index[i]].BoneIndex_[bone];
+	//			vertex[i].BoneWeight_[bone] = vertexTmp[index[i]].BoneWeight_[bone];
+	//		}
+	//	}
 
-				ABC.Cross(V1, V2);
+	//	delete[] vertexTmp;
+	//	vertexTmp = nullptr;
 
-				U[j] = -ABC.y / ABC.x;
-			}
+	//	//UV座標を設定.
+	//	FbxLayerElementUV* FBXLayerUV = fbxMesh->GetLayer(0)->GetUVs();
 
-			vertex[i].Tangent = Vector3(U[0], U[1], U[2]);
-			vertex[i + 1].Tangent = Vector3(U[0], U[1], U[2]);
-			vertex[i + 2].Tangent = Vector3(U[0], U[1], U[2]);
+	//	if (FBXLayerUV)
+	//	{
+	//		if (FBXLayerUV->GetMappingMode() == FbxLayerElement::eByPolygonVertex)
+	//		{
+	//			if (FBXLayerUV->GetReferenceMode() == FbxLayerElement::eIndexToDirect)
+	//			{
+	//				int uvIndex = 0;
+	//				int offset = 0;
+	//				for (int i = 0; i < polygonCount; i++)
+	//				{
+	//					// 1ポリゴン内の頂点数を取得
+	//					int lPolygonSize = fbxMesh->GetPolygonSize(i);
+	//					switch (lPolygonSize)
+	//					{
+	//					case 3:
+	//					{
+	//						for (int j = 0; j < 3; j++)
+	//						{
+	//							int index = FBXLayerUV->GetIndexArray().GetAt(j + offset);
+	//							FbxVector2 FBXTex = FBXLayerUV->GetDirectArray().GetAt(index);
+	//							vertex[uvIndex].Tex = Vector2(FBXTex[0], 1.0f - FBXTex[1]);
+	//							uvIndex++;
+	//						}
+	//					}
+	//					break;
+	//					case 4:
+	//					{
+	//						for (int j = 0; j < 6; j++)
+	//						{
+	//							int index = FBXLayerUV->GetIndexArray().GetAt(IndexArray[j] + offset);
+	//							FbxVector2 FBXTex = FBXLayerUV->GetDirectArray().GetAt(index);
+	//							vertex[uvIndex].Tex = Vector2(FBXTex[0], 1.0f - FBXTex[1]);
+	//							uvIndex++;
+	//						}
+	//					}
+	//					break;
+	//					}
+	//					offset += lPolygonSize;
+	//				}
+	//			}
+	//		}
+	//		else if (FBXLayerUV->GetMappingMode() == FbxLayerElement::eByControlPoint)
+	//		{
+	//			if (FBXLayerUV->GetReferenceMode() == FbxLayerElement::eDirect)
+	//			{
+	//				NK_ASSERT(false, "eDirect未実装");
+	//				/*for (int i = 0; i < VertexCount_; i++)
+	//				{
+	//				FbxVector2 tex = FBXLayerUV->GetDirectArray().GetAt(i);
+	//				vertex[i].Tex = Vector2(tex[0], 1.0f - tex[1]);
+	//				}*/
+	//			}
+	//		}
 
-			i += 3;
-		}
+	//		UVSetName_ = FBXLayerUV->GetName();
+	//	}
 
 
-		//頂点バッファ.
-		VertexBuffer_.Create(vertex, VertexCount_, sizeof(VertexBufferS));
-	}
+	//	//接ベクトルを求める.
+	//	for (int i = 0; i < VertexCount_;)
+	//	{
+	//		Vector3 CP0[3] =
+	//		{
+	//			Vector3(vertex[i].Pos.x, vertex[i].Tex.x, vertex[i].Tex.y),
+	//			Vector3(vertex[i].Pos.y, vertex[i].Tex.x, vertex[i].Tex.y),
+	//			Vector3(vertex[i].Pos.z, vertex[i].Tex.x, vertex[i].Tex.y),
+	//		};
+	//		Vector3 CP1[3] =
+	//		{
+	//			Vector3(vertex[i + 1].Pos.x, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
+	//			Vector3(vertex[i + 1].Pos.y, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
+	//			Vector3(vertex[i + 1].Pos.z, vertex[i + 1].Tex.x, vertex[i + 1].Tex.y),
+	//		};
+	//		Vector3 CP2[3] =
+	//		{
+	//			Vector3(vertex[i + 2].Pos.x, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
+	//			Vector3(vertex[i + 2].Pos.y, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
+	//			Vector3(vertex[i + 2].Pos.z, vertex[i + 2].Tex.x, vertex[i + 2].Tex.y),
+	//		};
+
+	//		//接ベクトル.
+	//		float U[3];
+	//		for (int j = 0; j < 3; j++)
+	//		{
+	//			Vector3 V1, V2, ABC;
+	//			V1.Sub(CP1[j], CP0[j]);
+	//			V2.Sub(CP2[j], CP1[j]);
+
+	//			ABC.Cross(V1, V2);
+
+	//			U[j] = -ABC.y / ABC.x;
+	//		}
+
+	//		vertex[i].Tangent = Vector3(U[0], U[1], U[2]);
+	//		vertex[i + 1].Tangent = Vector3(U[0], U[1], U[2]);
+	//		vertex[i + 2].Tangent = Vector3(U[0], U[1], U[2]);
+
+	//		i += 3;
+	//	}
+
+
+	//	//頂点バッファ.
+	//	VertexBuffer_.Create(vertex, VertexCount_, sizeof(VertexBufferS));
+	//}
 
 	/**
 	* マテリアルの作成.
@@ -702,7 +702,7 @@ namespace nkEngine
 								int materialNum = 0;
 								for (auto& it : modelData->GetMaterialList())
 								{
-									if (it->TextureName_ == textureName)
+									if (it->Name_ == textureName)
 									{
 										isTexture = true;
 										break;
@@ -750,7 +750,7 @@ namespace nkEngine
 							int materialNum = 0;
 							for (auto& it : modelData->GetMaterialList())
 							{
-								if (it->TextureName_ == textureName)
+								if (it->Name_ == textureName)
 								{
 									isTexture = true;
 									break;

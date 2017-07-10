@@ -13,7 +13,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	MainCamera()
+	MainCamera(string name) : 
+		IGameObject(name)
 	{
 	}
 

@@ -53,14 +53,21 @@ using namespace fbxsdk;
 
 #include<DirectXTex\DirectXTex.h>
 
-#include"Imgui\imgui.h"
-#include"Imgui\imgui_impl_dx11.h"
+#include"_DebugWindow\Imgui\imconfig.h"
+#include"_DebugWindow\Imgui\imgui.h"
+#include"_DebugWindow\Imgui\imgui_internal.h"
+#include"_DebugWindow\Imgui\stb_rect_pack.h"
+#include"_DebugWindow\Imgui\stb_textedit.h"
+#include"_DebugWindow\Imgui\stb_truetype.h"
+#include"_DebugWindow\Imgui\imgui_impl_dx11.h"
 
 //自作ヘッダインクルード.
 #include"_Debug\nkAssert.h"
 #include"_Debug\nkLog.h"
 #include"_Policy\nkNoncopyable.h"
 #include"_Policy\nkScopedResource.h"
+
+#include"_DebugWindow\Base\nkDebugWindowManager.h"
 
 #include"_Math\nkMatrix.h"
 #include"_Math\nkVector.h"

@@ -91,6 +91,7 @@ cbuffer PSConstantBuffer : register(b0)
 	LightS Light_;	//!< ライト.
 	ShadowReceiverParamS SRP_;	//!< シャドウレシーバー用パラメータ.
 	float4 CameraPos_;	//!< カメラの視点.
+	float4 CameraDir_;	//!< カメラの視線.
 	float4 EffectFlag_;	//!< x:法線マップ, y:スペキュラマップ.
 }
 
@@ -160,6 +161,14 @@ float4 PSMain(VS_OUT In) : SV_Target
 
 		LightColor += SpecColor * SpecPower;
 
+	}
+
+	//リムライト.
+	if (EffectFlag_.z > 0.0f)
+	{
+		float lim = (1.0f - dot(normal, -CameraDir_.xyz));
+		lim *= dot(CameraDir_.xyz, -Light_.DiffuseLightDir_[0].xyz);
+		LightColor.xyz += max(0.0f, lim);
 	}
 
 	//影.

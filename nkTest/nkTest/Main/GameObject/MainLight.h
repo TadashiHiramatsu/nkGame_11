@@ -13,7 +13,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	MainLight()
+	MainLight(string name) : 
+		IGameObject(name)
 	{
 	}
 

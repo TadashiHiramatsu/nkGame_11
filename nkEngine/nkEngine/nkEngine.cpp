@@ -4,6 +4,9 @@
 #include"nkstdafx.h"
 #include"nkEngine.h"
 
+#include"_DebugWindow\nkFPSWindow.h"
+#include"_DebugWindow\nkGameObjectWindow.h"
+
 namespace nkEngine
 {
 
@@ -41,10 +44,13 @@ namespace nkEngine
 
 		GameObjectManager().StartGOM(10);
 
-#ifdef DEBUG
-		//Imguiの初期化.
-		ImGui_ImplDX11_Init(hWnd_, D3DDevice_, D3DImmediateContext_);
-#endif
+		//デバッグウィンドウ管理クラスの初期化.
+		DebugWindowManager_.Start(hWnd_, D3DDevice_, D3DImmediateContext_);
+
+		//FPS表示ウィンドウクラスを追加.
+		DebugWindowManager_.AddDebugWindow<FPSWindow>();
+		//ゲームオブジェクト表示ウィンドウクラスを追加.
+		DebugWindowManager_.AddDebugWindow<GameObjectWindow>();
 
 		return true;
 	}
@@ -64,11 +70,6 @@ namespace nkEngine
 			}
 			else
 			{
-#ifdef DEBUG
-				//imguiのウィジェットを描画登録する前(ゲームループの初めとか)に↓を記述する
-				ImGui_ImplDX11_NewFrame();
-#endif
-
 				//更新.
 				MainLoop_.Update();
 				//描画.
@@ -241,10 +242,8 @@ namespace nkEngine
 		//モデル管理クラスを解放.
 		ModelManager_.Release();
 
-#ifdef DEBUG
-		//Imguiの解放.
-		ImGui_ImplDX11_Shutdown();
-#endif
+		//デバッグウィンドウ管理クラスの解放.
+		DebugWindowManager_.Release();
 
 		if (D3DImmediateContext_)
 		{
@@ -271,7 +270,7 @@ namespace nkEngine
 	{
 #ifdef DEBUG
 		//マウスで動くようにする.
-		if (ImGui_ImplDX11_WndProcHandler(hWnd, msg, wParam, lParam))
+		if (DebugWindowManager::Proc(hWnd, msg, wParam, lParam))
 		{
 			return true;
 		}

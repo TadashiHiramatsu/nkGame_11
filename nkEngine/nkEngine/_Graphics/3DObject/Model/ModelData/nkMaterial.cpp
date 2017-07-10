@@ -33,13 +33,13 @@ namespace nkEngine
 	void Material::Init(string textureName)
 	{
 
-		TextureName_ = textureName;
+		Name_ = textureName;
 
-		string filePath = "Model/" + TextureName_;
+		string filePath = "Model/" + Name_;
 
 		Texture_.Load(filePath);
 
-		vector<string> fileName = FileNameSearch(TextureName_);
+		vector<string> fileName = FileNameSearch(Name_);
 
 		string normalFileName = "Model/" + fileName[0] + "_Normal." + fileName[1];
 

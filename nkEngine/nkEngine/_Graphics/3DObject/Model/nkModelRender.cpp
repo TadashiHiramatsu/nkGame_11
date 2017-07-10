@@ -57,7 +57,6 @@ namespace nkEngine
 	*/
 	void ModelRender::Render()
 	{
-
 		//頂点シェーダーを設定.
 		Engine().GetRenderContext().VSSetShader(VShader_);
 		//ピクセルシェーダーを設定.
@@ -76,12 +75,14 @@ namespace nkEngine
 		psConstant.Light_ = *Light_;
 		psConstant.SRP_.LVMatrix_ = Engine().GetShadowMap().GetLVMatrix();
 		psConstant.SRP_.LPMatrix_ = Engine().GetShadowMap().GetLPMatrix();
-		Vector4 cameraPos;
-		cameraPos.x = Camera_->GetPosition().x;
-		cameraPos.y = Camera_->GetPosition().y;
-		cameraPos.z = Camera_->GetPosition().z;
-		cameraPos.w = 1.0f;
-		psConstant.CameraPos_ = cameraPos;
+		Vector3 cameraPos = Camera_->GetPosition();
+		psConstant.CameraPos_ = Vector4(cameraPos.x, cameraPos.y, cameraPos.z, 1.0f);
+		Vector3 cameraTar = Camera_->GetTarget();
+		Vector3 dir = Vector3::Zero;
+		dir.Sub(cameraTar, cameraPos);
+		dir.Normalize();
+		psConstant.CameraDir_ = Vector4(dir.x, dir.y, dir.z, 1.0f);
+		psConstant.EffectFlag_.z = IsLimLight_;
 
 		for (auto& it : ModelData_.GetMeshList())
 		{

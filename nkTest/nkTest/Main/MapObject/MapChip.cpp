@@ -14,6 +14,7 @@ void MapChip::Start()
 {
 	//ƒ‚ƒfƒ‹“Ç‚Ýž‚Ý.
 	ModelRender_.Init("MapObject_01", &Transform_, &g_MainLight->GetLight(), &g_MainCamera->GetCamera());
+	ModelRender_.SetLimLight(true);
 }
 
 /**

@@ -81,10 +81,6 @@ namespace nkEngine
 		/** メインレンダリングターゲット. */
 		RenderTarget MainRenderTarget_[2];
 
-#ifdef DEBUG
-		vector<float> FPSList_;
-#endif
-
 	public:
 
 		/** シャドウマップクラス. */

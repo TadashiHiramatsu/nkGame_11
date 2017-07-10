@@ -13,7 +13,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	UnityChan()
+	UnityChan(string name) :
+		IGameObject(name)
 	{
 	}
 

@@ -21,6 +21,17 @@ namespace nkEngine
 		*/
 		IGameObject()
 		{
+			Name_ = "GameObject";
+		}
+
+		/**
+		* コンストラクタ.
+		*
+		* @param name	オブジェクト名.
+		*/
+		IGameObject(string name)
+		{
+			Name_ = name;
 		}
 
 		/**

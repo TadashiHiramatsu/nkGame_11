@@ -153,6 +153,8 @@
     <ClInclude Include="nkMainLoop.h" />
     <ClInclude Include="nkstdafx.h" />
     <ClInclude Include="_Component\nkTransform.h" />
+    <ClInclude Include="_DebugWindow\Base\nkDebugWindow.h" />
+    <ClInclude Include="_DebugWindow\Base\nkDebugWindowManager.h" />
     <ClInclude Include="_DebugWindow\Imgui\imconfig.h" />
     <ClInclude Include="_DebugWindow\Imgui\imgui.h" />
     <ClInclude Include="_DebugWindow\Imgui\imgui_impl_dx11.h" />
@@ -160,13 +162,13 @@
     <ClInclude Include="_DebugWindow\Imgui\stb_rect_pack.h" />
     <ClInclude Include="_DebugWindow\Imgui\stb_textedit.h" />
     <ClInclude Include="_DebugWindow\Imgui\stb_truetype.h" />
+    <ClInclude Include="_DebugWindow\nkFPSWindow.h" />
+    <ClInclude Include="_DebugWindow\nkGameObjectWindow.h" />
     <ClInclude Include="_Debug\nkAssert.h" />
     <ClInclude Include="_Debug\nkLog.h" />
     <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h" />
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBone.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMaterial.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h" />
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelManager.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h" />
@@ -216,15 +218,25 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nkstdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="_Component\nkTransform.cpp" />
-    <ClCompile Include="_DebugWindow\Imgui\imgui.cpp" />
-    <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp" />
-    <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp" />
-    <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="_DebugWindow\Base\nkDebugWindow.cpp" />
+    <ClCompile Include="_DebugWindow\Base\nkDebugWindowManager.cpp" />
+    <ClCompile Include="_DebugWindow\Imgui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="_DebugWindow\nkFPSWindow.cpp" />
+    <ClCompile Include="_DebugWindow\nkGameObjectWindow.cpp" />
     <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp" />
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBone.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMaterial.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp" />
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelManager.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp" />

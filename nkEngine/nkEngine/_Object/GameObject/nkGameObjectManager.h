@@ -94,7 +94,13 @@ namespace nkEngine
 		*/
 		void Delete();
 
-	public:
+		/**
+		* ゲームオブジェクトリストを取得.
+		*/
+		const vector<list<IGameObject*>>& GetGameObjectList() const
+		{
+			return GameObjectList_;
+		}
 
 		/**
 		* GameObject登録.
@@ -105,10 +111,10 @@ namespace nkEngine
 		* @return Null if it fails, else a pointer to a T.
 		*/
 		template<class TGO>
-		TGO* NewGameObject(PriorityT prio)
+		TGO* NewGameObject(string name ,PriorityT prio)
 		{
 			//ゲームオブジェクト作成
-			TGO* newGO = new TGO;
+			TGO* newGO = new TGO(name);
 
 			//コンストラクタ、Start間の初期化
 			newGO->Awake();
@@ -130,7 +136,23 @@ namespace nkEngine
 		void DeleteGameObject(IGameObject* go)
 		{
 			//削除Listに追加
-			GameObjectList_.at(go->GetPriority()).push_back(go);
+			DeleteObjectList_.push_back(go);
+		}
+
+		/**
+		* ゲームオブジェクト取得.
+		*/
+		IGameObject* FindGameObject(string name)
+		{
+			for (auto& objList : GameObjectList_)
+			{
+				auto go = find_if(objList.begin(), objList.end(), [name](IGameObject* go) { return go->GetName() == name; });
+				if (go != objList.end())
+				{
+					return (*go);
+				}
+			}
+			return nullptr;
 		}
 
 		/**
@@ -161,7 +183,7 @@ namespace nkEngine
 		/** 登録されているGameObject. */
 		vector<GameObjectListT> GameObjectList_;
 		/** 削除するGameObject. */
-		vector<GameObjectListT> DeleteObjectList_;
+		GameObjectListT DeleteObjectList_;
 		/** 優先度の最大値を設定. */
 		PriorityT PriorityMax_;
 		/** 優先度の最大値. */
@@ -188,9 +210,9 @@ namespace nkEngine
 	* @return Null if it fails, else a pointer to a TGO.
 	*/
 	template<class TGO>
-	static TGO* NewGO(int prio = 0)
+	static TGO* NewGO(string name = "GameObject",int prio = 0)
 	{
-		return GameObjectManager().NewGameObject<TGO>(prio);
+		return GameObjectManager().NewGameObject<TGO>(name,prio);
 	}
 
 	/**

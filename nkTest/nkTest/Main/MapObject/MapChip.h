@@ -13,7 +13,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	MapChip()
+	MapChip(string name) :
+		IGameObject(name)
 	{
 	}
 

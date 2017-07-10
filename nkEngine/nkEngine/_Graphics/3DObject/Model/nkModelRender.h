@@ -41,7 +41,8 @@ namespace nkEngine
 			Light Light_;	//!< ライト.
 			ShadowMap::ShadowReceiverParamS SRP_;	//!< シャドウレシーバー用パラメータ.
 			Vector4 CameraPos_;	//!< カメラポジション.
-			Vector4 EffectFlag_ = Vector4::Zero;	//!< x:法線マップ, y:スペキュラマップ.
+			Vector4 CameraDir_;	//!< カメラの視線.
+			Vector4 EffectFlag_ = Vector4::Zero;	//!< x:法線マップ, y:スペキュラマップ, z:リムライト.
 		};
 
 	public:
@@ -97,6 +98,14 @@ namespace nkEngine
 		{
 			return ModelData_;
 		}
+		
+		/**
+		* リムライトフラグを設定する.
+		*/
+		void SetLimLight(bool lim)
+		{
+			IsLimLight_ = lim;
+		}
 
 	private:
 
@@ -123,6 +132,9 @@ namespace nkEngine
 		Light* Light_ = nullptr;
 		/** カメラのポインタ. */
 		Camera* Camera_ = nullptr;
+
+		/** リムライトフラグ. */
+		bool IsLimLight_ = false;
 
 	};
 

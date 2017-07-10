@@ -13,7 +13,8 @@ public:
 	/**
 	* コンストラクタ.
 	*/
-	Ground()
+	Ground(string name) : 
+		IGameObject(name)
 	{
 	}
 

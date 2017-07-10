@@ -88,8 +88,8 @@ namespace nkEngine
 
 	public:
 
-		/** テクスチャ名. */
-		string TextureName_ = "";
+		/** 名前. */
+		string Name_ = "";
 
 		/** テクスチャ. */
 		Texture Texture_;

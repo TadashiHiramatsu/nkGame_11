@@ -22,12 +22,11 @@ MainLight* g_MainLight = nullptr;
 */
 void MainScene::Start()
 {
-	g_MainCamera = NewGO<MainCamera>();
-	g_MainLight = NewGO<MainLight>();
+	g_MainCamera = NewGO<MainCamera>("MainCamera");
+	g_MainLight = NewGO<MainLight>("MainLight");
 	
-	NewGO<UnityChan>();
-	NewGO<Ground>();
+	NewGO<UnityChan>("UnityChan");
+	NewGO<Ground>("Ground");
 
 	//NewGO<MapChip>();
-
 }

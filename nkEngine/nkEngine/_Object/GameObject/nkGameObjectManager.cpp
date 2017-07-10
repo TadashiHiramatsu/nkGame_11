@@ -20,7 +20,6 @@ namespace nkEngine
 
 		//リサイズ
 		GameObjectList_.resize(PriorityMax_);
-		DeleteObjectList_.resize(PriorityMax_);
 	}
 
 	/**
@@ -28,9 +27,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::Start()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList)
+			for (auto obj : objList)
 			{
 				obj->StartWrapper();
 			}
@@ -42,9 +41,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::PreUpdate()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList)
+			for (auto obj : objList)
 			{
 				obj->PreUpdateWrapper();
 			}
@@ -56,9 +55,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::Update()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList) 
+			for (auto obj : objList)
 			{
 				obj->UpdateWrapper();
 			}
@@ -70,9 +69,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::PostUpdate()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList) 
+			for (auto obj : objList)
 			{
 				obj->PostUpdateWrapper();
 			}
@@ -84,9 +83,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::PreRender()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList) 
+			for (auto obj : objList)
 			{
 				obj->PreRenderWrapper();
 			}
@@ -98,9 +97,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::Render()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList)
+			for (auto obj : objList)
 			{
 				obj->RenderWrapper();
 			}
@@ -112,9 +111,9 @@ namespace nkEngine
 	*/
 	void GameObjectManagerSingleton::PostRender()
 	{
-		for (GameObjectListT objList : GameObjectList_)
+		for (auto& objList : GameObjectList_)
 		{
-			for (IGameObject* obj : objList) 
+			for (auto obj : objList)
 			{
 				obj->PostRenderWrapper();
 			}
@@ -127,29 +126,25 @@ namespace nkEngine
 	void GameObjectManagerSingleton::Delete()
 	{
 		//デリート予定のオブジェクトを全網羅
-		for (GameObjectListT& goList : DeleteObjectList_) 
+		for (auto go : DeleteObjectList_)
 		{
-			for (IGameObject* go : goList) 
-			{
-				//優先度から取得
-				PriorityT prio = go->GetPriority();
-				GameObjectListT& goExecList = GameObjectList_.at(prio);
+			//優先度から取得
+			PriorityT prio = go->GetPriority();
+			auto& goExecList = GameObjectList_.at(prio);
 				
-				//取得
-				auto& it = find(goExecList.begin(), goExecList.end(), go);
-				if (it != goExecList.end()) 
-				{
-					(*it)->OnDestroy();
-					//削除
-					delete (*it);
-				}
-
-				goExecList.erase(it);
+			//取得
+			auto& it = find(goExecList.begin(), goExecList.end(), go);
+			if (it != goExecList.end()) 
+			{
+				//破棄処理.
+				(*it)->OnDestroy();
+				//削除
+				delete (*it);
 			}
 
-			goList.clear();
+			goExecList.erase(it);
 		}
-
+		DeleteObjectList_.clear();
 	}
 
 	/**
