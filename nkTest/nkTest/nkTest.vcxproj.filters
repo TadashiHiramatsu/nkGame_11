@@ -33,20 +33,17 @@
     <ClCompile Include="Main\MapObject\Ground.cpp">
       <Filter>Main\MapObject</Filter>
     </ClCompile>
-    <ClCompile Include="Main\Player\UnityChan.cpp">
-      <Filter>Main\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Main\GameObject\MainLight.cpp">
       <Filter>Main\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Main\GameObject\MainCamera.cpp">
       <Filter>Main\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Main\GameObject\TestObject.cpp">
-      <Filter>Main\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Main\MapObject\MapChip.cpp">
       <Filter>Main\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Player\CandyRockStar.cpp">
+      <Filter>Main\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,20 +56,17 @@
     <ClInclude Include="Main\MapObject\Ground.h">
       <Filter>Main\MapObject</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Player\UnityChan.h">
-      <Filter>Main\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Main\GameObject\MainLight.h">
       <Filter>Main\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Main\GameObject\MainCamera.h">
       <Filter>Main\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Main\GameObject\TestObject.h">
-      <Filter>Main\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Main\MapObject\MapChip.h">
       <Filter>Main\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Player\CandyRockStar.h">
+      <Filter>Main\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,9 +80,6 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Asset\Shader\Blur.fx">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Asset\Shader\HDAO.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

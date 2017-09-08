@@ -61,6 +61,3 @@ private:
 	float Distance_ = 10;
 
 };
-
-/** ƒOƒ[ƒoƒ‹. */
-extern MainCamera* g_MainCamera;

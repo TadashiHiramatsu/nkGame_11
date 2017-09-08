@@ -257,6 +257,22 @@ namespace nkEngine
 		void PSSetSampler(UINT startSlot, UINT numSamplers, SamplerState* sampler);
 
 		/**
+		* ラスタライザの状態を取得.
+		*/
+		void RSGetState(ID3D11RasterizerState** pRasterizerState)
+		{
+			D3DDeviceContext_->RSGetState(pRasterizerState);
+		}
+
+		/**
+		* ラスタライザの状態を設定.
+		*/
+		void RSSetState(ID3D11RasterizerState* pRasterizerState)
+		{
+			D3DDeviceContext_->RSSetState(pRasterizerState);
+		}
+
+		/**
 		* サブリソースを更新.
 		*
 		* @param & buffer		コピー先バッファ.

@@ -59,7 +59,7 @@ namespace nkEngine
 
 		/**
 		* 描画.
-		* ラッパー.
+		* 管理クラスから呼ばれる.
 		*/
 		void RenderWrapper()
 		{
@@ -69,7 +69,7 @@ namespace nkEngine
 			}
 		}
 
-	private:
+	protected:
 
 		/** 名前. */
 		string Name_ = "";

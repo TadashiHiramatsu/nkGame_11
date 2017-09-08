@@ -9,7 +9,7 @@ namespace nkEngine
 	/**
 	* 形状の基底クラス.
 	*/
-	class IShape : Noncopyable
+	class IShape : public IComponent
 	{
 	public:
 
@@ -45,7 +45,8 @@ namespace nkEngine
 		/**
 		* コンストラクタ.
 		*/
-		IShape()
+		IShape(IGameObject* go) : 
+			IComponent(go)
 		{
 		}
 
@@ -59,16 +60,15 @@ namespace nkEngine
 		/**
 		* 作成.
 		*
-		* @param transform	トランスフォームのポインタ.
 		* @param light		ライトのポインタ.
 		* @param camera		カメラのポインタ.
 		*/
-		void Create(Transform* transform, Light* light, Camera* camera);
+		void Create(Light* light, Camera* camera);
 
 		/**
 		* 描画.
 		*/
-		void Render();
+		void Render()override;
 
 	protected:
 
@@ -93,8 +93,6 @@ namespace nkEngine
 		/** PSステージの定数バッファ. */
 		ConstantBuffer PSConstantBuffer_;
 
-		/** トランスフォーム. */
-		Transform* Transform_ = nullptr;
 		/** ライト. */
 		Light* Light_ = nullptr;
 		/** カメラ. */

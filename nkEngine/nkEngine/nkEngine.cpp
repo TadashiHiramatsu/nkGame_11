@@ -1,5 +1,5 @@
-/**
-* ƒGƒ“ƒWƒ“ƒNƒ‰ƒX‚ÌÀ‘•.
+ï»¿/**
+* ã‚¨ãƒ³ã‚¸ãƒ³ã‚¯ãƒ©ã‚¹ã®å®Ÿè£….
 */
 #include"nkstdafx.h"
 #include"nkEngine.h"
@@ -11,52 +11,55 @@ namespace nkEngine
 {
 
 	/**
-	* ƒGƒ“ƒWƒ“‚Ì‰Šú‰».
+	* ã‚¨ãƒ³ã‚¸ãƒ³ã®åˆæœŸåŒ–.
 	*
-	* @param initParam	‰Šú‰»ƒpƒ‰ƒ[ƒ^.
+	* @param initParam	åˆæœŸåŒ–ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿.
 	*/
 	bool EngineSingleton::Init(const InitParamS & initParam)
 	{
-		//ƒEƒBƒ“ƒhƒE‚Ì‰Šú‰».
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸåŒ–.
 		if (!InitWindow(initParam))
 		{
-			NK_ASSERT(false, "Window‰Šú‰»‚Å‚«‚Ë‚¥.");
+			NK_ASSERT(false, "WindowåˆæœŸåŒ–ã§ãã­ã‡.");
 			return false;
 		}
 
-		//Direct3D11‚Ì‰Šú‰».
+		//Direct3D11ã®åˆæœŸåŒ–.
 		if (!InitDirectX(initParam))
 		{
-			NK_ASSERT(false, "DirectX‰Šú‰»‚Å‚«‚Ë‚¥.");
+			NK_ASSERT(false, "DirectXåˆæœŸåŒ–ã§ãã­ã‡.");
 			return false;
 		}
 
 		if (!MainLoop_.Init())
 		{
-			NK_ASSERT(false, "FX‰Šú‰»‚Å‚«‚Ë‚¥.");
+			NK_ASSERT(false, "è‰²ã€…åˆæœŸåŒ–ã§ãã­ã‡.");
 			return false;
 		}
 
 		Input().Init(true, true);
 
-		//ƒ‚ƒfƒ‹ŠÇ—ƒNƒ‰ƒX‚ğ‰Šú‰».
+		//ãƒ¢ãƒ‡ãƒ«ç®¡ç†ã‚¯ãƒ©ã‚¹ã‚’åˆæœŸåŒ–.
 		ModelManager_.Init();
+
+		//ç‰©ç†ã‚¯ãƒ©ã‚¹ã‚’åˆæœŸåŒ–.
+		Physics_.Init();
 
 		GameObjectManager().StartGOM(10);
 
-		//ƒfƒoƒbƒOƒEƒBƒ“ƒhƒEŠÇ—ƒNƒ‰ƒX‚Ì‰Šú‰».
+		//ãƒ‡ãƒãƒƒã‚°ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç®¡ç†ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–.
 		DebugWindowManager_.Start(hWnd_, D3DDevice_, D3DImmediateContext_);
 
-		//FPS•\¦ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ğ’Ç‰Á.
+		//FPSè¡¨ç¤ºã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã‚’è¿½åŠ .
 		DebugWindowManager_.AddDebugWindow<FPSWindow>();
-		//ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg•\¦ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ğ’Ç‰Á.
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¡¨ç¤ºã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã‚’è¿½åŠ .
 		DebugWindowManager_.AddDebugWindow<GameObjectWindow>();
 
 		return true;
 	}
 
 	/**
-	* ƒƒCƒ“ƒ‹[ƒv‚ÌÀs.
+	* ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—ã®å®Ÿè¡Œ.
 	*/
 	void EngineSingleton::RunMainLoop()
 	{
@@ -70,9 +73,11 @@ namespace nkEngine
 			}
 			else
 			{
-				//XV.
+				//ç‰©ç†ã‚¯ãƒ©ã‚¹ã‚’æ›´æ–°.
+				Physics_.Update();
+				//æ›´æ–°.
 				MainLoop_.Update();
-				//•`‰æ.
+				//æç”».
 				MainLoop_.Render();
 			}
 		}
@@ -80,13 +85,13 @@ namespace nkEngine
 
 
 	/**
-	* ƒEƒBƒ“ƒhƒE‚Ì‰Šú‰».
+	* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸåŒ–.
 	*
-	* @param initParam	‰Šú‰»ƒpƒ‰ƒ[ƒ^.
+	* @param initParam	åˆæœŸåŒ–ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿.
 	*/
 	bool EngineSingleton::InitWindow(const InitParamS & initParam)
 	{
-		//ƒXƒNƒŠ[ƒ“ƒTƒCƒY.
+		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚º.
 		ScreenBufferW_ = initParam.ScreenBufferW_;
 		ScreenBufferH_ = initParam.ScreenBufferH_;
 
@@ -110,7 +115,7 @@ namespace nkEngine
 		HWND hDeskWnd = GetDesktopWindow();
 		GetWindowRect(hDeskWnd, &rd);
 
-		//ƒEƒBƒ“ƒhƒEì¬
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½œæˆ
 		hWnd_ = CreateWindow(
 			TEXT("nkGame"),
 			(LPCSTR)initParam.GameName_.c_str(),
@@ -129,11 +134,11 @@ namespace nkEngine
 		GetWindowRect(hWnd_, &rw);
 		GetClientRect(hWnd_, &cw);
 
-		//ƒEƒBƒ“ƒhƒE‚Ì‰ŠúˆÊ’uŒvZ
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸä½ç½®è¨ˆç®—
 		int new_width = (rw.right - rw.left) - (cw.right - cw.left) + ScreenBufferW_;
 		int new_height = (rw.bottom - rw.top) - (cw.bottom - cw.top) + ScreenBufferH_;
 
-		//ƒXƒNƒŠ[ƒ“À•Wi0,0j‚ÉƒEƒBƒ“ƒhƒE‚ğ‰Šú”z’u
+		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ï¼ˆ0,0ï¼‰ã«ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆæœŸé…ç½®
 		SetWindowPos(hWnd_, NULL, (rd.right - new_width) / 2, 0, new_width, new_height, SWP_SHOWWINDOW);
 
 		ShowWindow(hWnd_, SW_SHOWDEFAULT);
@@ -142,107 +147,124 @@ namespace nkEngine
 	}
 
 	/**
-	* DirectX11‚Ì‰Šú‰».
+	* DirectX11ã®åˆæœŸåŒ–.
 	*
-	* @param initParam	‰Šú‰»ƒpƒ‰ƒ[ƒ^.
+	* @param initParam	åˆæœŸåŒ–ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿.
 	*/
 	bool EngineSingleton::InitDirectX(const InitParamS & initParam)
 	{
 		UINT createDeviceFlags = 0;
 
-#ifdef DEBUG //ƒfƒoƒbƒN.
+#ifdef DEBUG //ãƒ‡ãƒãƒƒã‚¯.
 		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
 		D3D_DRIVER_TYPE driverTypes[] =
 		{
-			D3D_DRIVER_TYPE_HARDWARE,	//ƒn[ƒhƒEƒFƒAƒhƒ‰ƒCƒo[BDirect3D‹@”\‚ğƒn[ƒhƒEƒFƒA‚ÉÀ‘•‚µ‚Ü‚·.
-			D3D_DRIVER_TYPE_WARP,		//WARPƒhƒ‰ƒCƒo[B‚ƒpƒtƒH[ƒ}ƒ“ƒX‚Ìƒ\ƒtƒgƒEƒFƒAƒ‰ƒXƒ^ƒ‰ƒCƒU[.
-			D3D_DRIVER_TYPE_REFERENCE,	//ƒŠƒtƒ@ƒŒƒ“ƒXƒhƒ‰ƒCƒo[B‚·‚×‚Ä‚ÌDirect3D‹@”\‚ğƒTƒ|[ƒg‚·‚éƒ\ƒtƒgƒEƒFƒAÀ‘•.
+			D3D_DRIVER_TYPE_HARDWARE,	//ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã€‚Direct3Dæ©Ÿèƒ½ã‚’ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ã«å®Ÿè£…ã—ã¾ã™.
+			D3D_DRIVER_TYPE_WARP,		//WARPãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã€‚é«˜ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ãƒ¼.
+			D3D_DRIVER_TYPE_REFERENCE,	//ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã€‚ã™ã¹ã¦ã®Direct3Dæ©Ÿèƒ½ã‚’ã‚µãƒãƒ¼ãƒˆã™ã‚‹ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢å®Ÿè£….
 		};
 
 		D3D_FEATURE_LEVEL featureLevels[] =
 		{
-			D3D_FEATURE_LEVEL_11_0,	//ƒVƒF[ƒ_[ƒ‚ƒfƒ‹5‚È‚Ç‚ÌDirect3D 11.0‚ÅƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚é‹@”\.
-			D3D_FEATURE_LEVEL_10_1, //ƒVƒF[ƒ_[ƒ‚ƒfƒ‹4‚È‚Ç‚ÌDirect3D 10.1‚ÅƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚é‹@”\.
-			D3D_FEATURE_LEVEL_10_0, //ƒVƒF[ƒ_[ƒ‚ƒfƒ‹4‚È‚Ç‚ÌDirect3D 10.0‚ÅƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚é‹@”\.
+			D3D_FEATURE_LEVEL_11_0,	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ‡ãƒ«5ãªã©ã®Direct3D 11.0ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹æ©Ÿèƒ½.
+			D3D_FEATURE_LEVEL_10_1, //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ‡ãƒ«4ãªã©ã®Direct3D 10.1ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹æ©Ÿèƒ½.
+			D3D_FEATURE_LEVEL_10_0, //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ‡ãƒ«4ãªã©ã®Direct3D 10.0ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹æ©Ÿèƒ½.
 		};
 		UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
-		//ƒtƒŒ[ƒ€ƒTƒCƒY.
+		//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚µã‚¤ã‚º.
 		FrameBufferW_ = initParam.FrameBufferW_;
 		FrameBufferH_ = initParam.FrameBufferH_;
 
-		//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚ğì¬.
+		//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‚’ä½œæˆ.
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory(&sd, sizeof(sd));
 		
-		//•`‰ææ‚Ìc‰¡ƒTƒCƒYAƒtƒH[ƒ}ƒbƒg(Œ`®)‚ğİ’è.
-		sd.BufferCount = 1; //ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìƒoƒbƒtƒ@”B’Êí‚Í‚P.
-		sd.BufferDesc.Width = FrameBufferW_;  //ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚Ì•.
-		sd.BufferDesc.Height = FrameBufferH_; //ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚Ì‚‚³.
-		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	//ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚ÌƒtƒH[ƒ}ƒbƒgBR8G8B8A8‚Ì32bitB
+		//æç”»å…ˆã®ç¸¦æ¨ªã‚µã‚¤ã‚ºã€ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ(å½¢å¼)ã‚’è¨­å®š.
+		sd.BufferCount = 1; //ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ãƒãƒƒãƒ•ã‚¡æ•°ã€‚é€šå¸¸ã¯ï¼‘.
+		sd.BufferDesc.Width = FrameBufferW_;  //ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã®å¹….
+		sd.BufferDesc.Height = FrameBufferH_; //ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã®é«˜ã•.
+		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã€‚R8G8B8A8ã®32bitã€‚
 		
-		//•`‰ææ‚ÌXV•p“x(60fps‚¾‚Á‚½‚è30fps‚¾‚Á‚½‚è‚Æ‚¢‚¤‚ ‚ê)‚ğ•ª”Œ`®‚Åİ’è.
-		sd.BufferDesc.RefreshRate.Numerator = 60; //ƒ‚ƒjƒ^‚ÌƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg.
-		sd.BufferDesc.RefreshRate.Denominator = 1; //•ª•êBƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚ªŠ„‚ç‚ê‚é.
-		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; //ƒT[ƒtƒFƒX‚Ü‚½‚ÍƒŠƒ\[ƒX‚ğo—ÍƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Æ‚µ‚Äg—p.
+		//æç”»å…ˆã®æ›´æ–°é »åº¦(60fpsã ã£ãŸã‚Š30fpsã ã£ãŸã‚Šã¨ã„ã†ã‚ã‚Œ)ã‚’åˆ†æ•°å½¢å¼ã§è¨­å®š.
+		sd.BufferDesc.RefreshRate.Numerator = 60; //ãƒ¢ãƒ‹ã‚¿ã®ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆ.
+		sd.BufferDesc.RefreshRate.Denominator = 1; //åˆ†æ¯ã€‚ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆãŒå‰²ã‚‰ã‚Œã‚‹.
+		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; //ã‚µãƒ¼ãƒ•ã‚§ã‚¹ã¾ãŸã¯ãƒªã‚½ãƒ¼ã‚¹ã‚’å‡ºåŠ›ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦ä½¿ç”¨.
 		
-		//‘¼A•`‰ææ‚Ìg—p•û–@(‚Ü‚ ‚±‚±‚Å‚ÍDXGI_USAGE_RENDER_TARGET_OUTPUT‚¾‚ë‚¤)A•`‰ææƒEƒBƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹AƒEƒBƒ“ƒhƒEƒ‚[ƒh‚©”Û‚©AMSAA‚ÌƒNƒIƒŠƒeƒB‚âƒJƒEƒ“ƒg“™‚ğİ’è.
-		sd.SampleDesc.Count = 1; //ƒsƒNƒZƒ‹’PˆÊ‚Ìƒ}ƒ‹ƒ`ƒTƒ“ƒvƒŠƒ“ƒO‚Ì”.MSAA‚Í‚È‚µ.
-		sd.SampleDesc.Quality = 0; //MSAA‚È‚µ.
-		sd.Windowed = TRUE;	//ƒEƒBƒ“ƒhƒEƒ‚[ƒh.
-		sd.OutputWindow = hWnd_; //•`‰æ‚·‚éƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚Á‚Ä‚±‚Æ‚©‚È.
+		//ä»–ã€æç”»å…ˆã®ä½¿ç”¨æ–¹æ³•(ã¾ã‚ã“ã“ã§ã¯DXGI_USAGE_RENDER_TARGET_OUTPUTã ã‚ã†)ã€æç”»å…ˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«ã€ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã‹å¦ã‹ã€MSAAã®ã‚¯ã‚ªãƒªãƒ†ã‚£ã‚„ã‚«ã‚¦ãƒ³ãƒˆç­‰ã‚’è¨­å®š.
+		sd.SampleDesc.Count = 1; //ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã®ãƒãƒ«ãƒã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã®æ•°.MSAAã¯ãªã—.
+		sd.SampleDesc.Quality = 0; //MSAAãªã—.
+		sd.Windowed = TRUE;	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰.
+		sd.OutputWindow = hWnd_; //æç”»ã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«ã£ã¦ã“ã¨ã‹ãª.
 
-		//‘S‚Ä‚Ìƒhƒ‰ƒCƒoƒ^ƒCƒv‚ÅƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬‚ğ‚·.
+		//å…¨ã¦ã®ãƒ‰ãƒ©ã‚¤ãƒã‚¿ã‚¤ãƒ—ã§ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ä½œæˆã‚’è©¦ã™.
 		HRESULT hr = E_FAIL;
 		for(auto& driverType : driverTypes)
 		{
-			//ƒhƒ‰ƒCƒoƒ^ƒCƒv‚ğİ’è.
+			//ãƒ‰ãƒ©ã‚¤ãƒã‚¿ã‚¤ãƒ—ã‚’è¨­å®š.
 			D3DDriverType_ = driverType;
 			hr = D3D11CreateDeviceAndSwapChain(
-				nullptr, //‚Ç‚ÌƒrƒfƒIƒAƒ_ƒvƒ^‚ğg—p‚·‚é‚©HŠù’è‚È‚ç‚Înullptr‚ÅAIDXGIAdapter‚ÌƒAƒhƒŒƒX.
-				D3DDriverType_, //ƒhƒ‰ƒCƒo‚Ìƒ^ƒCƒv.
-				nullptr, //ã‹L‚ğD3D_DRIVER_TYPE_SOFTWARE‚Éİ’è‚µ‚½Û‚ÉA‚»‚Ìˆ—‚ğs‚¤DLL‚Ìƒnƒ“ƒhƒ‹‚ğ“n‚·B‚»‚êˆÈŠO‚ğw’è‚µ‚Ä‚¢‚éÛ‚É‚Í•K‚¸nullptr‚ğ“n‚·.
-				createDeviceFlags, //‰½‚ç‚©‚Ìƒtƒ‰ƒO‚ğw’è‚·‚éBD3D11_CREATE_DEVICE—ñ‹“Œ^.
-				featureLevels, //D3D_FEATURE_LEVEL—ñ‹“Œ^‚Ì”z—ñ.
-				numFeatureLevels, //ã‹L”z—ñ‚Ì”.
-				D3D11_SDK_VERSION, //SDK‚Ìƒo[ƒWƒ‡ƒ“B•K‚¸‚±‚Ì’l.
-				&sd, //ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìİ’è.
-				&D3DSwapChain_, //ƒXƒƒbƒvƒ`ƒFƒCƒ“.
-				&D3DDevice_, //D3D11ƒfƒoƒCƒX.
-				&D3DFeatureLevel_, //Direct3DƒfƒoƒCƒX‚Ìƒ^[ƒQƒbƒg‚Æ‚È‚é‹@”\ƒZƒbƒg.
-				&D3DImmediateContext_); //ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg.
+				nullptr, //ã©ã®ãƒ“ãƒ‡ã‚ªã‚¢ãƒ€ãƒ—ã‚¿ã‚’ä½¿ç”¨ã™ã‚‹ã‹ï¼Ÿæ—¢å®šãªã‚‰ã°nullptrã§ã€IDXGIAdapterã®ã‚¢ãƒ‰ãƒ¬ã‚¹.
+				D3DDriverType_, //ãƒ‰ãƒ©ã‚¤ãƒã®ã‚¿ã‚¤ãƒ—.
+				nullptr, //ä¸Šè¨˜ã‚’D3D_DRIVER_TYPE_SOFTWAREã«è¨­å®šã—ãŸéš›ã«ã€ãã®å‡¦ç†ã‚’è¡Œã†DLLã®ãƒãƒ³ãƒ‰ãƒ«ã‚’æ¸¡ã™ã€‚ãã‚Œä»¥å¤–ã‚’æŒ‡å®šã—ã¦ã„ã‚‹éš›ã«ã¯å¿…ãšnullptrã‚’æ¸¡ã™.
+				createDeviceFlags, //ä½•ã‚‰ã‹ã®ãƒ•ãƒ©ã‚°ã‚’æŒ‡å®šã™ã‚‹ã€‚D3D11_CREATE_DEVICEåˆ—æŒ™å‹.
+				featureLevels, //D3D_FEATURE_LEVELåˆ—æŒ™å‹ã®é…åˆ—.
+				numFeatureLevels, //ä¸Šè¨˜é…åˆ—ã®æ•°.
+				D3D11_SDK_VERSION, //SDKã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã€‚å¿…ãšã“ã®å€¤.
+				&sd, //ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®è¨­å®š.
+				&D3DSwapChain_, //ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³.
+				&D3DDevice_, //D3D11ãƒ‡ãƒã‚¤ã‚¹.
+				&D3DFeatureLevel_, //Direct3Dãƒ‡ãƒã‚¤ã‚¹ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹æ©Ÿèƒ½ã‚»ãƒƒãƒˆ.
+				&D3DImmediateContext_); //ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ.
 
 			if (SUCCEEDED(hr))
 			{
-				//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚ğì¬‚Å‚«‚½‚Ì‚Åƒ‹[ƒv‚ğ”²‚¯‚é.
+				//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‚’ä½œæˆã§ããŸã®ã§ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹.
 				break;
 			}
 		}
 		if (FAILED(hr))
 		{
-			//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚ğì¬o—ˆ‚È‚©‚Á‚½.
+			//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‚’ä½œæˆå‡ºæ¥ãªã‹ã£ãŸ.
 			return false;
 		}
 
-		//ƒŒƒ“ƒ_ƒŠƒ“ƒOƒRƒ“ƒeƒLƒXƒg‚Ì‰Šú‰»B
+		//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®åˆæœŸåŒ–ã€‚
 		RenderContext_.Init(D3DImmediateContext_);
+
+		//ä¸¡é¢æç”»ã«è¨­å®š.
+		if (true)
+		{
+			ID3D11RasterizerState* rs = nullptr;
+			D3D11_RASTERIZER_DESC rd;
+			ZeroMemory(&rd, sizeof(rd));
+			rd.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+			rd.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+			rd.DepthClipEnable = FALSE;
+			rd.MultisampleEnable = FALSE;
+			rd.DepthBiasClamp = 0;
+			rd.SlopeScaledDepthBias = 0;
+			D3DDevice_->CreateRasterizerState(&rd, &rs);
+			RenderContext_.RSSetState(rs);
+		}
 
 		return true;
 	}
 
 	/**
-	* I—¹ˆ—.
+	* çµ‚äº†å‡¦ç†.
 	*/
 	void EngineSingleton::Final()
 	{
+		//ãƒ¡ã‚¤ãƒ³ã‚’è§£æ”¾.
 		MainLoop_.Release();
 
-		//ƒ‚ƒfƒ‹ŠÇ—ƒNƒ‰ƒX‚ğ‰ğ•ú.
+		//ãƒ¢ãƒ‡ãƒ«ç®¡ç†ã‚¯ãƒ©ã‚¹ã‚’è§£æ”¾.
 		ModelManager_.Release();
 
-		//ƒfƒoƒbƒOƒEƒBƒ“ƒhƒEŠÇ—ƒNƒ‰ƒX‚Ì‰ğ•ú.
+		//ãƒ‡ãƒãƒƒã‚°ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç®¡ç†ã‚¯ãƒ©ã‚¹ã®è§£æ”¾.
 		DebugWindowManager_.Release();
 
 		if (D3DImmediateContext_)
@@ -264,12 +286,12 @@ namespace nkEngine
 	}
 
 	/**
-	* ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ.
+	* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£.
 	*/
 	LRESULT EngineSingleton::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 #ifdef DEBUG
-		//ƒ}ƒEƒX‚Å“®‚­‚æ‚¤‚É‚·‚é.
+		//ãƒã‚¦ã‚¹ã§å‹•ãã‚ˆã†ã«ã™ã‚‹.
 		if (DebugWindowManager::Proc(hWnd, msg, wParam, lParam))
 		{
 			return true;
@@ -278,16 +300,16 @@ namespace nkEngine
 
 		switch (msg)
 		{
-		case WM_KEYDOWN: // ƒL[‚ğ‰Ÿ‚µ‚½‚Æ‚«
+		case WM_KEYDOWN: // ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã¨ã
 			switch (wParam)
 			{
-			case VK_ESCAPE: // ƒGƒXƒP[ƒvƒL[
+			case VK_ESCAPE: // ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚­ãƒ¼
 				GetInstance().Final();
 				PostQuitMessage(0);
 				return 0;
 			}
 			break;
-		case WM_DESTROY: // íœ.
+		case WM_DESTROY: // å‰Šé™¤.
 			GetInstance().Final();
 			PostQuitMessage(0);
 			return 0;

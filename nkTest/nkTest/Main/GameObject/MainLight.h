@@ -49,5 +49,3 @@ private:
 	Light Light_;
 
 };
-
-extern MainLight* g_MainLight;

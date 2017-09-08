@@ -72,6 +72,18 @@ namespace nkEngine
 			return x * x + y * y;
 		}
 
+		/**
+		* 等しいか.
+		*/
+		static bool Equal(Vector2 v1, Vector2 v2)
+		{
+			if (v1.x == v2.x && v1.y == v2.y)
+			{
+				return true;
+			}
+			return false;
+		}
+
 	public:
 
 		union
@@ -352,6 +364,18 @@ namespace nkEngine
 			Set(Vec1);
 		}
 
+		/**
+		* 等しいか.
+		*/
+		static bool Equal(Vector3 v1, Vector3 v2)
+		{
+			if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
+			{
+				return true;
+			}
+			return false;
+		}
+
 	public:
 
 		union
@@ -526,6 +550,18 @@ namespace nkEngine
 			w *= s;
 		}
 
+		/**
+		* 等しいか.
+		*/
+		static bool Equal(Vector4 v1, Vector4 v2)
+		{
+			if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z && v1.w == v2.w)
+			{
+				return true;
+			}
+			return false;
+		}
+
 	public:
 
 		union
@@ -616,6 +652,36 @@ namespace nkEngine
 			x = pw * qx + px * qw + py * qz - pz * qy;
 			y = pw * qy - px * qz + py * qw + pz * qx;
 			z = pw * qz + px * qy - py * qx + pz * qw;
+		}
+		
+		/**
+		* オイラー角を取得.
+		*/
+		const Vector3& GetEuler() const
+		{
+			DirectX::XMVECTOR qua = DirectX::XMVectorSet(x, y, z, w);
+			auto& rot = DirectX::XMMatrixRotationQuaternion(qua);
+			Vector3 euler = Vector3::Zero;
+			euler.x = DirectX::XMConvertToDegrees(-asinf(DirectX::XMVectorGetY(rot.r[2])));
+			euler.y = DirectX::XMConvertToDegrees(atan2f(DirectX::XMVectorGetX(rot.r[2]), DirectX::XMVectorGetZ(rot.r[2])));
+			euler.z = DirectX::XMConvertToDegrees(atan2f(DirectX::XMVectorGetY(rot.r[0]), DirectX::XMVectorGetY(rot.r[1])));
+			return euler;
+		}
+
+		/**
+		* オイラー角から回転.
+		*/
+		void RotationEuler(const Vector3& euler)
+		{
+			Vector3 e;
+			e.x = DirectX::XMConvertToRadians(euler.x);
+			e.y = DirectX::XMConvertToRadians(euler.y);
+			e.z = DirectX::XMConvertToRadians(euler.z);
+			auto& rotMatrix = DirectX::XMMatrixRotationRollPitchYaw(e.x, e.y, e.z);
+			auto& vec = DirectX::XMQuaternionRotationMatrix(rotMatrix);
+			DirectX::XMFLOAT4 rot;
+			XMStoreFloat4(&rot, vec);
+			Set(rot.x, rot.y, rot.z, rot.w);
 		}
 
 	public:

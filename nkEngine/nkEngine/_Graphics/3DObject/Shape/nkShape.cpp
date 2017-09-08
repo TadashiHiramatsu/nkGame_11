@@ -10,13 +10,11 @@ namespace nkEngine
 	/**
 	* 作成.
 	*
-	* @param transform	トランスフォームのポインタ.
 	* @param light		ライトのポインタ.
 	* @param camera		カメラのポインタ.
 	*/
-	void IShape::Create(Transform * transform, Light * light, Camera * camera)
+	void IShape::Create(Light * light, Camera * camera)
 	{
-		Transform_ = transform;
 		Light_ = light;
 		Camera_ = camera;
 
@@ -25,8 +23,8 @@ namespace nkEngine
 		//ピクセルシェーダーをロード。
 		PShader_.Load("Shape", "PSShape", Shader::TypeE::PS);
 
+		//バッファ作成.
 		CreateBuffer();
-
 	}
 
 	/**
@@ -51,7 +49,7 @@ namespace nkEngine
 		Engine().GetRenderContext().IASetInputLayout(VShader_.GetInputLayout());
 
 		VSConstantBufferS vsConstant;
-		vsConstant.WorldMatrix_ = Transform_->WorldMatrix_;
+		vsConstant.WorldMatrix_ = GameObject_->Transform_.WorldMatrix_;
 		vsConstant.ViewMatrix_ = Camera_->GetViewMatrix();
 		vsConstant.ProjMatrix_ = Camera_->GetProjectionMatrix();
 		//VSステージの定数バッファを更新.

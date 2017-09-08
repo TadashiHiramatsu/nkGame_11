@@ -4,25 +4,27 @@
 #include"nkstdafx.h"
 #include"nkModelRender.h"
 
+#include"ModelData\nkMeshNode.h"
+#include"ModelData\nkSkinMeshNode.h"
+
 namespace nkEngine
 {
 
 	/**
 	* 初期化.
 	*/
-	void ModelRender::Init(
-		string fileName, 
-		Transform* parent,
+	void ModelRender::Start(
 		Light* light,
 		Camera* camera)
 	{
-		ModelData_.Load(fileName, parent);
+		ModelData_ = (ModelData*)GameObject_->FindComponent("ModelData");
 
 		Light_ = light;
 		Camera_ = camera;
 
 		//頂点シェーダーをロード。
 		VShader_.Load("Model", "VSMain", Shader::TypeE::VS);
+		SkinVShader_.Load("Model","VSSkinMain", Shader::TypeE::VS);
 		//ピクセルシェーダーをロード。
 		PShader_.Load("Model", "PSMain", Shader::TypeE::PS);
 
@@ -34,14 +36,6 @@ namespace nkEngine
 		//サンプラステートを作成.
 		SamplerState_.Create(D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_WRAP);
 
-	}
-
-	/**
-	* 更新.
-	*/
-	void ModelRender::Update()
-	{
-		ModelData_.Update();
 	}
 
 	/**
@@ -57,13 +51,6 @@ namespace nkEngine
 	*/
 	void ModelRender::Render()
 	{
-		//頂点シェーダーを設定.
-		Engine().GetRenderContext().VSSetShader(VShader_);
-		//ピクセルシェーダーを設定.
-		Engine().GetRenderContext().PSSetShader(PShader_);
-		//入力レイアウトを設定.
-		Engine().GetRenderContext().IASetInputLayout(VShader_.GetInputLayout());
-
 		//サンプラステートを設定.
 		Engine().GetRenderContext().PSSetSampler(0, 1, &SamplerState_);
 
@@ -84,53 +71,139 @@ namespace nkEngine
 		psConstant.CameraDir_ = Vector4(dir.x, dir.y, dir.z, 1.0f);
 		psConstant.EffectFlag_.z = IsLimLight_;
 
-		for (auto& it : ModelData_.GetMeshList())
+		for (auto node : ModelData_->GetNodeList())
 		{
-			
-			vsConstant.WorldMatrix_ = it->GetWorldMatrix();
-		
-			//VSステージの定数バッファを更新.
-			Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
-			//VSステージの定数バッファを設定.
-			Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
-
-			//シャドウテクスチャを設定.
-			Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::ShadowTexture, Engine().GetShadowMap().GetShadowMapSRV());
-
-			if (it->GetMaterialNum() != -1)
+			if (node->GetNodeType() == INode::NodeTypeE::Mesh)
 			{
-				Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetTextureSRV());
+				//頂点シェーダーを設定.
+				Engine().GetRenderContext().VSSetShader(VShader_);
+				//ピクセルシェーダーを設定.
+				Engine().GetRenderContext().PSSetShader(PShader_);
+				//入力レイアウトを設定.
+				Engine().GetRenderContext().IASetInputLayout(VShader_.GetInputLayout());
 
-				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isNormalMap())
+				//メッシュクラスにキャスト.
+				MeshNode* mesh = (MeshNode*)node;
+
+				//ワールド行列を設定.
+				vsConstant.WorldMatrix_ = mesh->GetWorldMatrix();
+
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
+
+				//シャドウテクスチャを設定.
+				Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::ShadowTexture, Engine().GetShadowMap().GetShadowMapSRV());
+
+				if (mesh->GetMaterialNum() != -1)
 				{
-					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetNormalTextureSRV());
-					psConstant.EffectFlag_.x = 1.0f;
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetTextureSRV());
+
+					if (ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->isNormalMap())
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetNormalTextureSRV());
+						psConstant.EffectFlag_.x = true;
+					}
+					else
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, nullptr);
+						psConstant.EffectFlag_.x = false;
+					}
+
+					if (ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->isSpecularMap())
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetSpecularTextureSRV());
+						psConstant.EffectFlag_.y = true;
+					}
+					else
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, nullptr);
+						psConstant.EffectFlag_.y = false;
+					}
 				}
 				else
 				{
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, nullptr);
 					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, nullptr);
-					psConstant.EffectFlag_.x = 0.0f;
+					psConstant.EffectFlag_.x = false;
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, nullptr);
+					psConstant.EffectFlag_.y = false;
 				}
 
-				if (ModelData_.GetMaterialList()[it->GetMaterialNum()]->isSpecularMap())
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(PSConstantBuffer_, psConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().PSSetConstantBuffer(0, PSConstantBuffer_);
+
+				//メッシュ描画.
+				mesh->RenderWrapper();
+			}
+			else if (node->GetNodeType() == INode::NodeTypeE::SkinMesh)
+			{
+				//頂点シェーダーを設定.
+				Engine().GetRenderContext().VSSetShader(SkinVShader_);
+				//ピクセルシェーダーを設定.
+				Engine().GetRenderContext().PSSetShader(PShader_);
+				//入力レイアウトを設定.
+				Engine().GetRenderContext().IASetInputLayout(SkinVShader_.GetInputLayout());
+				//メッシュクラスにキャスト.
+				SkinMeshNode* mesh = (SkinMeshNode*)node;
+
+				//ワールド行列を設定.
+				vsConstant.WorldMatrix_ = mesh->GetWorldMatrix();
+
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
+
+				//シャドウテクスチャを設定.
+				Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::ShadowTexture, Engine().GetShadowMap().GetShadowMapSRV());
+
+				if (mesh->GetMaterialNum() != -1)
 				{
-					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, ModelData_.GetMaterialList()[it->GetMaterialNum()]->GetSpecularTextureSRV());
-					psConstant.EffectFlag_.y = 1.0f;
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetTextureSRV());
+
+					if (ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->isNormalMap())
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetNormalTextureSRV());
+						psConstant.EffectFlag_.x = true;
+					}
+					else
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, nullptr);
+						psConstant.EffectFlag_.x = false;
+					}
+
+					if (ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->isSpecularMap())
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, ModelData_->GetMaterialList()[mesh->GetMaterialNum()]->GetSpecularTextureSRV());
+						psConstant.EffectFlag_.y = true;
+					}
+					else
+					{
+						Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, nullptr);
+						psConstant.EffectFlag_.y = false;
+					}
 				}
 				else
 				{
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::DiffuseTexture, nullptr);
+					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::NormalTexture, nullptr);
+					psConstant.EffectFlag_.x = false;
 					Engine().GetRenderContext().PSSetShaderResource(ShaderResourceCodeE::SpecularTexture, nullptr);
-					psConstant.EffectFlag_.y = 0.0f;
+					psConstant.EffectFlag_.y = false;
 				}
+
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(PSConstantBuffer_, psConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().PSSetConstantBuffer(0, PSConstantBuffer_);
+
+				//メッシュ描画.
+				mesh->RenderWrapper();
 			}
-
-			//VSステージの定数バッファを更新.
-			Engine().GetRenderContext().UpdateSubresource(PSConstantBuffer_, psConstant);
-			//VSステージの定数バッファを設定.
-			Engine().GetRenderContext().PSSetConstantBuffer(0, PSConstantBuffer_);
-
-			//メッシュ描画.
-			it->Render();
 		}
 	}
 
@@ -151,18 +224,40 @@ namespace nkEngine
 		vsConstant.ViewMatrix_ = Engine().GetShadowMap().GetLVMatrix();
 		vsConstant.ProjMatrix_ = Engine().GetShadowMap().GetLPMatrix();
 
-		for (auto& it : ModelData_.GetMeshList())
+		for (auto node : ModelData_->GetNodeList())
 		{
-			
-			vsConstant.WorldMatrix_  = it->GetWorldMatrix();
-	
-			//VSステージの定数バッファを更新.
-			Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
-			//VSステージの定数バッファを設定.
-			Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
+			if (node->GetNodeType() == INode::NodeTypeE::Mesh)
+			{
+				//メッシュクラスにキャスト.
+				MeshNode* mesh = (MeshNode*)node;
 
-			//メッシュ描画.
-			it->Render();
+				//ワールド行列を設定.
+				vsConstant.WorldMatrix_ = mesh->GetWorldMatrix();
+
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
+
+				//メッシュ描画.
+				mesh->RenderWrapper();
+			}
+			else if (node->GetNodeType() == INode::NodeTypeE::SkinMesh)
+			{
+				//メッシュクラスにキャスト.
+				SkinMeshNode* mesh = (SkinMeshNode*)node;
+
+				//ワールド行列を設定.
+				vsConstant.WorldMatrix_ = mesh->GetWorldMatrix();
+
+				//VSステージの定数バッファを更新.
+				Engine().GetRenderContext().UpdateSubresource(VSConstantBuffer_, vsConstant);
+				//VSステージの定数バッファを設定.
+				Engine().GetRenderContext().VSSetConstantBuffer(0, VSConstantBuffer_);
+
+				//メッシュ描画.
+				mesh->RenderWrapper();
+			}
 		}
 	}
 

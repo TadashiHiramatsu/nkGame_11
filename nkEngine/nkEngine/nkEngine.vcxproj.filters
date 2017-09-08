@@ -77,6 +77,9 @@
     <Filter Include="DebugWindow\Base">
       <UniqueIdentifier>{fd883bd4-cb8b-4984-9f62-0bd1b3d548cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{399ee588-515e-4926-8c38-a70667768cc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nkEngine.h">
@@ -172,9 +175,6 @@
     <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h">
       <Filter>Graphics\3DObject\Model</Filter>
     </ClInclude>
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
-    </ClInclude>
     <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h">
       <Filter>Graphics\3DObject\Model</Filter>
     </ClInclude>
@@ -250,6 +250,48 @@
     <ClInclude Include="_DebugWindow\Base\nkDebugWindowManager.h">
       <Filter>DebugWindow\Base</Filter>
     </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkNode.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMeshNode.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkNullNode.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBoneNode.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkinMeshNode.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkCollider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkCollisionAttr.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkMeshCollider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkRigidBody.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkSphereCollider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkBoxCollider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="_Physics\nkCapsuleCollider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nkEngine.cpp">
@@ -314,9 +356,6 @@
     </ClCompile>
     <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp">
       <Filter>Graphics\3DObject\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp">
-      <Filter>Graphics\3DObject\Model\ModelData</Filter>
     </ClCompile>
     <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp">
       <Filter>Graphics\3DObject\Model</Filter>
@@ -383,6 +422,42 @@
     </ClCompile>
     <ClCompile Include="_DebugWindow\Base\nkDebugWindow.cpp">
       <Filter>DebugWindow\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkNode.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMeshNode.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkNullNode.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBoneNode.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkinMeshNode.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp">
+      <Filter>Graphics\3DObject\Model\ModelData</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkMeshCollider.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkRigidBody.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkSphereCollider.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkBoxCollider.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="_Physics\nkCapsuleCollider.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

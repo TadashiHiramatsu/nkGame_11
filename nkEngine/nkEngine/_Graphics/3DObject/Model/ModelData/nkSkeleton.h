@@ -3,13 +3,10 @@
 */
 #pragma once
 
-#include"nkBone.h"
+#include"nkBoneNode.h"
 
 namespace nkEngine
 {
-
-	/** ボーンリスト. */
-	using BoneList = vector<BonePtr>;
 
 	/**
 	* スケルトンクラス.
@@ -34,43 +31,11 @@ namespace nkEngine
 		}
 
 		/**
-		* アニメーションエンドフレームを設定.
-		*
-		* @param frame	フレーム番号.
-		*/
-		void SetAnimationEndFrame(UINT frame)
-		{
-			AnimationEndFrame_ = frame;
-		}
-		/**
-		* アニメーションエンドフレームを取得.
-		*/
-		UINT GetAnimationEndFrame()
-		{
-			return AnimationEndFrame_;
-		}
-
-		/**
-		* 現在のアニメーションフレーム番号を設定.
-		*/
-		void SetAnimationFrame(UINT frame)
-		{
-			NowAnimationFrame_ = frame;
-		}
-		/**
-		* 現在のアニメーションフレーム番号を取得.
-		*/
-		UINT GetAnimationFrame()
-		{
-			return NowAnimationFrame_;
-		}
-		
-		/**
 		* ボーンを取得.
 		*
 		* @param index	ボーン番号.
 		*/
-		BonePtr GetBone(UINT index)
+		BoneNode* GetBone(UINT index)
 		{
 			return BoneList_[index];
 		}
@@ -79,14 +44,12 @@ namespace nkEngine
 		*
 		* @param name	ボーン名.
 		*/
-		BonePtr GetBone(string name)
+		BoneNode* FindBone(string name)
 		{
-			for (auto& it : BoneList_)
+			auto node = find_if(BoneList_.begin(), BoneList_.end(), [name](BoneNode* bone) {return bone->GetName() == name; });
+			if (node != BoneList_.end())
 			{
-				if (it->GetBoneName() == name)
-				{
-					return it;
-				}
+				return (*node);
 			}
 			return nullptr;
 		}
@@ -96,7 +59,7 @@ namespace nkEngine
 		*
 		* @param bone	ボーンポインタ.
 		*/
-		void AddBone(BonePtr bone)
+		void AddBone(BoneNode* bone)
 		{
 			//ボーン番号を設定.
 			bone->SetBoneIndex(BoneList_.size());
@@ -113,12 +76,10 @@ namespace nkEngine
 		*/
 		int FindBoneIndex(string name)
 		{
-			for (auto& it : BoneList_)
+			auto node = find_if(BoneList_.begin(), BoneList_.end(), [name](BoneNode* bone) {return bone->GetName() == name; });
+			if (node != BoneList_.end())
 			{
-				if (it->GetBoneName() == name)
-				{
-					return it->GetBoneIndex();
-				}
+				return (*node)->GetBoneIndex();
 			}
 			return -1;
 		}
@@ -128,12 +89,7 @@ namespace nkEngine
 		/**
 		* ボーンリスト.
 		*/
-		BoneList BoneList_;
-
-		/** アニメーションエンドフレーム. */
-		UINT AnimationEndFrame_ = 0;
-		/** 現在のアニメーションフレーム番号. */
-		UINT NowAnimationFrame_ = 0;
+		vector<BoneNode*> BoneList_;
 
 	};
 

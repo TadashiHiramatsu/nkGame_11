@@ -8,12 +8,9 @@
 
 //ÉJÉÅÉâ.
 #include"GameObject\MainCamera.h"
-MainCamera* g_MainCamera = nullptr;
 #include"GameObject\MainLight.h"
-MainLight* g_MainLight = nullptr;
 
-#include"GameObject\TestObject.h"
-#include"Player\UnityChan.h"
+#include"Player\CandyRockStar.h"
 #include"MapObject\Ground.h"
 #include"MapObject\MapChip.h"
 
@@ -22,11 +19,11 @@ MainLight* g_MainLight = nullptr;
 */
 void MainScene::Start()
 {
-	g_MainCamera = NewGO<MainCamera>("MainCamera");
-	g_MainLight = NewGO<MainLight>("MainLight");
+	NewGO<MainCamera>("MainCamera");
+	NewGO<MainLight>("MainLight");
 	
-	NewGO<UnityChan>("UnityChan");
+	NewGO<CandyRockStar>("CandyRockStar");
 	NewGO<Ground>("Ground");
+	//NewGO<MapChip>("MapChip");
 
-	//NewGO<MapChip>();
 }

@@ -51,6 +51,10 @@ using namespace std;
 
 using namespace fbxsdk;
 
+//Bulletインクルード.
+#include<btBulletDynamicsCommon.h>
+#include"_Physics\nkCollisionAttr.h"
+
 #include<DirectXTex\DirectXTex.h>
 
 #include"_DebugWindow\Imgui\imconfig.h"
@@ -112,3 +116,11 @@ using namespace fbxsdk;
 
 #include"_Graphics\3DObject\Shape\nkBoxShape.h"
 #include"_Graphics\3DObject\Model\nkModelRender.h"
+
+//物理エンジン
+#include"_Physics\nkPhysics.h"
+#include"_Physics\nkRigidBody.h"
+#include"_Physics\nkMeshCollider.h"
+#include"_Physics\nkBoxCollider.h"
+#include"_Physics\nkCapsuleCollider.h"
+#include"_Physics\nkSphereCollider.h"

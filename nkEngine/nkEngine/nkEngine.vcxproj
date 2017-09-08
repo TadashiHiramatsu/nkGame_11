@@ -74,7 +74,7 @@
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\include;$(ProjectDir)../;$(ProjectDir);C:\Github\nkGame_11\nkEngine\nkEngine\BulletPhysics\src;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2018.1.1\lib\vs2015\x64\debug;C:\Github\nkGame_11\nkEngine\nkEngine\DirectXTex\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,8 +167,13 @@
     <ClInclude Include="_Debug\nkAssert.h" />
     <ClInclude Include="_Debug\nkLog.h" />
     <ClInclude Include="_Graphics\3DObject\Camera\nkCamera.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkBoneNode.h" />
     <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMaterial.h" />
-    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMesh.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkMeshNode.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkNode.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkNullNode.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.h" />
+    <ClInclude Include="_Graphics\3DObject\Model\ModelData\nkSkinMeshNode.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelData.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelManager.h" />
     <ClInclude Include="_Graphics\3DObject\Model\nkModelRender.h" />
@@ -200,6 +205,14 @@
     <ClInclude Include="_Object\GameObject\nkGameObject.h" />
     <ClInclude Include="_Object\GameObject\nkGameObjectManager.h" />
     <ClInclude Include="_Object\nkObject.h" />
+    <ClInclude Include="_Physics\nkBoxCollider.h" />
+    <ClInclude Include="_Physics\nkCapsuleCollider.h" />
+    <ClInclude Include="_Physics\nkCollider.h" />
+    <ClInclude Include="_Physics\nkCollisionAttr.h" />
+    <ClInclude Include="_Physics\nkMeshCollider.h" />
+    <ClInclude Include="_Physics\nkPhysics.h" />
+    <ClInclude Include="_Physics\nkRigidBody.h" />
+    <ClInclude Include="_Physics\nkSphereCollider.h" />
     <ClInclude Include="_Policy\nkNoncopyable.h" />
     <ClInclude Include="_Policy\nkScopedResource.h" />
     <ClInclude Include="_Scene\nkScene.h" />
@@ -222,21 +235,30 @@
     <ClCompile Include="_DebugWindow\Base\nkDebugWindowManager.cpp" />
     <ClCompile Include="_DebugWindow\Imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="_DebugWindow\Imgui\imgui_impl_dx11.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="_DebugWindow\nkFPSWindow.cpp" />
     <ClCompile Include="_DebugWindow\nkGameObjectWindow.cpp" />
     <ClCompile Include="_Graphics\3DObject\Camera\nkCamera.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkBoneNode.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMaterial.cpp" />
-    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMesh.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkMeshNode.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkNode.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkNullNode.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkeleton.cpp" />
+    <ClCompile Include="_Graphics\3DObject\Model\ModelData\nkSkinMeshNode.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelData.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelManager.cpp" />
     <ClCompile Include="_Graphics\3DObject\Model\nkModelRender.cpp" />
@@ -266,6 +288,12 @@
     <ClCompile Include="_Object\GameObject\nkGameObject.cpp" />
     <ClCompile Include="_Object\GameObject\nkGameObjectManager.cpp" />
     <ClCompile Include="_Object\nkObject.cpp" />
+    <ClCompile Include="_Physics\nkBoxCollider.cpp" />
+    <ClCompile Include="_Physics\nkCapsuleCollider.cpp" />
+    <ClCompile Include="_Physics\nkMeshCollider.cpp" />
+    <ClCompile Include="_Physics\nkPhysics.cpp" />
+    <ClCompile Include="_Physics\nkRigidBody.cpp" />
+    <ClCompile Include="_Physics\nkSphereCollider.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

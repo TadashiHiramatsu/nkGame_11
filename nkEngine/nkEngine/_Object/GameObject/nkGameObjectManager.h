@@ -111,7 +111,7 @@ namespace nkEngine
 		* @return Null if it fails, else a pointer to a T.
 		*/
 		template<class TGO>
-		TGO* NewGameObject(string name ,PriorityT prio)
+		TGO* NewGameObject(string name, PriorityT prio)
 		{
 			//ゲームオブジェクト作成
 			TGO* newGO = new TGO(name);
@@ -210,9 +210,9 @@ namespace nkEngine
 	* @return Null if it fails, else a pointer to a TGO.
 	*/
 	template<class TGO>
-	static TGO* NewGO(string name = "GameObject",int prio = 0)
+	static TGO* NewGO(string name = "GameObject", PriorityT prio = 0)
 	{
-		return GameObjectManager().NewGameObject<TGO>(name,prio);
+		return GameObjectManager().NewGameObject<TGO>(name, prio);
 	}
 
 	/**

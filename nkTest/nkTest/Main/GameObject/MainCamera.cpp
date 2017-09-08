@@ -16,9 +16,9 @@ void MainCamera::Start()
 	Camera_.SetDirection(Vector3::Front);
 
 	//ƒJƒƒ‰‚Ì‹“_‚ğİ’è.
-	Camera_.SetPosition(Vector3(0.0f, 1.0f, -1.0f));
+	Camera_.SetPosition(Vector3(0.0f, 1.0f, -3.0f));
 
-	Distance_ = 10;
+	Distance_ = 20;
 	Camera_.SetDistance(Distance_);
 
 	Camera_.SetNear(0.01f);

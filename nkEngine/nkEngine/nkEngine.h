@@ -6,6 +6,7 @@
 #include"nkMainLoop.h"
 
 #include"_Graphics\3DObject\Model\nkModelManager.h"
+#include"_Physics\nkPhysics.h"
 
 namespace nkEngine
 {
@@ -171,6 +172,14 @@ namespace nkEngine
 			return DebugWindowManager_;
 		}
 
+		/**
+		* 物理クラスを取得.
+		*/
+		Physics& GetPhysics()
+		{
+			return Physics_;
+		}
+
 	private:
 
 		/**
@@ -222,6 +231,9 @@ namespace nkEngine
 
 		/** モデル管理クラス. */
 		ModelManager ModelManager_;
+
+		/** 物理クラス. */
+		Physics Physics_;
 		
 		/** フレームバッファの幅.内部解像度. */
 		int FrameBufferW_ = 0;
@@ -238,7 +250,7 @@ namespace nkEngine
 	};
 
 	/**
-	* エンジンの取得.
+	* エンジンを取得.
 	*/
 	static EngineSingleton& Engine()
 	{

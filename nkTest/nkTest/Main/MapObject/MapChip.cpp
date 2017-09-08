@@ -12,9 +12,26 @@
 */
 void MapChip::Start()
 {
-	//モデル読み込み.
-	ModelRender_.Init("MapObject_01", &Transform_, &g_MainLight->GetLight(), &g_MainCamera->GetCamera());
-	ModelRender_.SetLimLight(true);
+	BoxShape* Model_ = AddComponent<BoxShape>();
+	MainCamera* camera = (MainCamera*)GameObjectManager().FindGameObject("MainCamera");
+	MainLight* light = (MainLight*)GameObjectManager().FindGameObject("MainLight");
+	Model_->Create(&light->GetLight(), &camera->GetCamera());
+
+	Transform_.Position_.y = 2.0f;
+
+	Collider_.Create(Vector3::One);
+	RigidBodyInfoS info;
+	info.Collider_ = &Collider_;
+	info.Mass_ = 1.0f;
+	RigidBody_.Create(info);
+	RigidBody_.GetBody()->setUserIndex((int)ECollisionAttr::Character);
+	RigidBody_.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+	Engine().GetPhysics().AddRigidBody(&RigidBody_);
+
+	btTransform& trans = RigidBody_.GetBody()->getWorldTransform();
+	//剛体の位置を更新。
+	trans.setOrigin(btVector3(Transform_.Position_.x, Transform_.Position_.y, Transform_.Position_.z));
+
 }
 
 /**
@@ -22,23 +39,7 @@ void MapChip::Start()
 */
 void MapChip::Update()
 {
-	Transform_.Update();
-
-	ModelRender_.Update();
-}
-
-/**
-* Render前の描画.
-*/
-void MapChip::PreRender()
-{
-	ModelRender_.PreRender();
-}
-
-/**
-* 描画.
-*/
-void MapChip::Render()
-{
-	ModelRender_.Render();
+	btTransform& trans = RigidBody_.GetBody()->getWorldTransform();
+	//剛体の位置を更新。
+	trans.setOrigin(btVector3(Transform_.Position_.x, Transform_.Position_.y, Transform_.Position_.z));
 }

@@ -3,21 +3,25 @@
  */
 #pragma once
 
+#include"_Object\Component\nkComponent.h"
+
 namespace nkEngine
 {
 
 	/**
 	 * トランスフォームクラス.
 	 */
-	class Transform : Noncopyable
+	class Transform : public IComponent
 	{
 	public:
 
 		/**
 		 * コンストラクタ.
 		 */
-		Transform()
+		Transform(IGameObject* gameObject) : 
+			IComponent(gameObject)
 		{
+			Name_ = "Transform";
 		}
 
 		/**
@@ -30,17 +34,49 @@ namespace nkEngine
 		/**
 		 * ワールド行列などの更新.
 		 */
-		void Update();
+		void Update()override;
 
 		/**
 		 * ビルボードする更新.
 		 */
 		void BillboardUpdate(const Matrix& rot);
-	
-	public:
+
+		/**
+		* 親を設定.
+		*/
+		void SetParent(Transform* parent)
+		{
+			//親を設定.
+			Parent_ = parent;
+			//親に自分を子供として追加.
+			parent->AddChildren(this);
+		}
+
+		/**
+		* 子供を追加.
+		*/
+		void AddChildren(Transform* child)
+		{
+			//子供を追加.
+			ChildrenList_.push_back(child);
+		}
+
+		/**
+		* 子供リストを取得.
+		*/
+		vector<Transform*>& GetChildrenList()
+		{
+			return ChildrenList_;
+		}
+
+	private:
 
 		/** 親のトランスフォーム. */
 		Transform* Parent_ = nullptr;
+		/** 子のリスト. */
+		vector<Transform*> ChildrenList_;
+
+	public:
 
 		/** 位置ベクトル. */
 		Vector3 Position_ = Vector3::Zero;
@@ -60,4 +96,4 @@ namespace nkEngine
 
 	};
 
-}// namespace nkEngine
+}

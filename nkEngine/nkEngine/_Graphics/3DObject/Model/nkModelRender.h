@@ -4,6 +4,7 @@
 #pragma once
 
 #include"nkModelData.h"
+#include"_Object\Component\nkComponent.h"
 
 namespace nkEngine
 {
@@ -11,7 +12,7 @@ namespace nkEngine
 	/**
 	* モデル描画クラス.
 	*/
-	class ModelRender : Noncopyable
+	class ModelRender : public IComponent
 	{
 	public:
 
@@ -50,8 +51,10 @@ namespace nkEngine
 		/**
 		* コンストラクタ.
 		*/
-		ModelRender()
+		ModelRender(IGameObject* go) : 
+			IComponent(go)
 		{
+			Name_ = "ModelRender";
 		}
 
 		/**
@@ -64,41 +67,26 @@ namespace nkEngine
 		/**
 		* 初期化.
 		*/
-		void Init(
-			string fileName,
-			Transform* parent,
+		void Start(
 			Light* light,
 			Camera* camera
 		);
 
 		/**
-		* 更新.
-		*/
-		void Update();
-
-		/**
 		* Render前の描画.
 		*/
-		void PreRender();
+		void PreRender()override;
 
 		/**
 		* 描画.
 		*/
-		void Render();
+		void Render()override;
 
 		/**
 		* シャドウマップ描画.
 		*/
 		void RenderToShadowMap();
 
-		/**
-		* モデルデータを取得.
-		*/
-		ModelData& GetModelData()
-		{
-			return ModelData_;
-		}
-		
 		/**
 		* リムライトフラグを設定する.
 		*/
@@ -110,13 +98,15 @@ namespace nkEngine
 	private:
 
 		/** モデルデータ. */
-		ModelData ModelData_;
+		ModelData* ModelData_ = nullptr;
 
 		/** トランスフォーム. */
 		Transform* Transform_ = nullptr;
 
 		/** 頂点シェーダ. */
 		Shader VShader_;
+		/** スキン用頂点シェーダ. */
+		Shader SkinVShader_;
 		/** ピクセルシェーダ. */
 		Shader PShader_;
 

@@ -7,6 +7,13 @@
 namespace nkEngine
 {
 
-
+	/**
+	* オブジェクトを削除する.
+	*
+	* @param object	オブジェクトのポインタ.
+	*/
+	void IComponent::Destroy(IObject * object)
+	{
+	}
 
 }

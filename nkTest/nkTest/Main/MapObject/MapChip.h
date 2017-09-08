@@ -35,19 +35,9 @@ public:
 	*/
 	void Update()override;
 
-	/**
-	* Render‘O‚Ì•`‰æ.
-	*/
-	void PreRender()override;
-
-	/**
-	* •`‰æ.
-	*/
-	void Render()override;
-
 private:
 
-	/** ƒ‚ƒfƒ‹•`‰æƒNƒ‰ƒX. */
-	ModelRender ModelRender_;
+	BoxCollider Collider_;
+	RigidBody RigidBody_;
 
 };

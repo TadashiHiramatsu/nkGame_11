@@ -30,24 +30,10 @@ public:
 	*/
 	void Start()override;
 
-	/**
-	* 更新.
-	*/
-	void Update()override;
-
-	/**
-	* Render前の描画.
-	*/
-	void PreRender()override;
-
-	/**
-	* 描画.
-	*/
-	void Render()override;
-
 private:
 
-	/** モデル描画クラス. */
-	ModelRender ModelRender_;
+	MeshCollider Collider_;
+	RigidBody RigidBody_;
+
 
 };

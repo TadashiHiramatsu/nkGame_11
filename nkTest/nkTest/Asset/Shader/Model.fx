@@ -11,8 +11,20 @@ struct VS_IN
 	float2 Tex			: TEXCOORD0;	//!< UV座標.
 	float3 Normal		: NORMAL;		//!< 法線ベクトル.
 	float3 Tangent		: TANGENT;		//!< 接ベクトル
-	//uint   BoneIndex	: BLENDINDICES;	//!< ボーン番号.
-	//float  BoneWeight	: BLENDWEIGHT;	//!< ボーンウェイト.
+};
+
+/**
+* 頂点シェーダの入力レイアウト.
+* スキン用.
+*/
+struct VS_SKIN_IN
+{
+	float4 Pos			: POSITION0;	//!< 座標.
+	float2 Tex			: TEXCOORD0;	//!< UV座標.
+	float3 Normal		: NORMAL;		//!< 法線ベクトル.
+	float3 Tangent		: TANGENT;		//!< 接ベクトル
+	uint   BoneIndex	: BLENDINDICES;	//!< ボーン番号.
+	float  BoneWeight	: BLENDWEIGHT;	//!< ボーンウェイト.
 };
 
 /**
@@ -41,6 +53,31 @@ cbuffer VSConstantBuffer : register(b0)
 * 頂点シェーダのエントリ関数.
 */
 VS_OUT VSMain(VS_IN In)
+{
+	VS_OUT Out = (VS_OUT)0;
+
+	float4 pos = In.Pos;
+
+	pos = mul(pos, WorldMatrix_);
+
+	Out.WorldPos = pos.xyz;
+
+	pos = mul(pos, ViewMatrix_);
+	pos = mul(pos, ProjMatrix_);
+
+	Out.Pos = pos;
+
+	float3 nor = mul(In.Normal, (float4x3)WorldMatrix_);
+	Out.Normal = normalize(nor);
+	float3 tan = mul(In.Tangent, (float4x3)WorldMatrix_);
+	Out.Tangent = normalize(tan);
+
+	Out.Tex = In.Tex;
+
+	return Out;
+}
+
+VS_OUT VSSkinMain(VS_SKIN_IN In)
 {
 	VS_OUT Out = (VS_OUT)0;
 
@@ -154,19 +191,18 @@ float4 PSMain(VS_OUT In) : SV_Target
 			float3 L = -Light_.DiffuseLightDir_[i].xyz;
 
 			//スペキュラ強度を計算.
-			SpecColor += Light_.DiffuseLightColor_[i] * pow(max(0.0f, dot(L, R)), 2)* Light_.DiffuseLightColor_[i].w;
+			SpecColor += Light_.DiffuseLightColor_[i] * pow(max(0.0f, dot(L, R)), 2) * Light_.DiffuseLightColor_[i].w;
 		}
 
 		float4 SpecPower = SpecularTexture.Sample(Sampler, In.Tex);
 
 		LightColor += SpecColor * SpecPower;
-
 	}
 
 	//リムライト.
 	if (EffectFlag_.z > 0.0f)
 	{
-		float lim = (1.0f - dot(normal, -CameraDir_.xyz));
+		float lim = (1.0f - dot(-normal, CameraDir_.xyz));
 		lim *= dot(CameraDir_.xyz, -Light_.DiffuseLightDir_[0].xyz);
 		LightColor.xyz += max(0.0f, lim);
 	}

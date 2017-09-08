@@ -12,31 +12,20 @@
 */
 void Ground::Start()
 {
-	ModelRender_.Init("Ground", &Transform_, &g_MainLight->GetLight(), &g_MainCamera->GetCamera());
-}
+	ModelData* modelData = AddComponent<ModelData>();
+	modelData->Load("Ground");
+	ModelRender* modelRender = AddComponent<ModelRender>();
+	MainCamera* camera = (MainCamera*)GameObjectManager().FindGameObject("MainCamera");
+	MainLight* light = (MainLight*)GameObjectManager().FindGameObject("MainLight");
+	modelRender->Start(&light->GetLight(), &camera->GetCamera());
 
-/**
-* XV.
-*/
-void Ground::Update()
-{
 	Transform_.Update();
+	Collider_.Create(modelData, &Transform_.WorldMatrix_);
+	RigidBodyInfoS info;
+	info.Collider_ = &Collider_;
+	info.Mass_ = 0.0f;
+	RigidBody_.Create(info);
+	RigidBody_.GetBody()->setUserIndex((int)ECollisionAttr::Ground);
+	Engine().GetPhysics().AddRigidBody(&RigidBody_);
 
-	ModelRender_.Update();
-}
-
-/**
-* Render‘O‚Ì•`‰æ.
-*/
-void Ground::PreRender()
-{
-	ModelRender_.PreRender();
-}
-
-/**
-* •`‰æ.
-*/
-void Ground::Render()
-{
-	ModelRender_.Render();
 }

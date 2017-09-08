@@ -19,7 +19,7 @@ namespace nkEngine
 		isEnable_ = true;
 
 		Near_ = 1.0f;
-		Far_ = 100.0f;
+		Far_ = 50.0f;
 
 		int w = 2048;
 		int h = 2048;

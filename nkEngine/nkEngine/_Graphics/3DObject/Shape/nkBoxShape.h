@@ -18,7 +18,8 @@ namespace nkEngine
 		/**
 		* コンストラクタ.
 		*/
-		BoxShape()
+		BoxShape(IGameObject* go) : 
+			IShape(go)
 		{
 		}
 
