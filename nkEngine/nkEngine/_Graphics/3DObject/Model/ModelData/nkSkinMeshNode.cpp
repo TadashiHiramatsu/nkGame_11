@@ -198,6 +198,11 @@ namespace nkEngine
 				//ボーンインデックス.
 				UINT boneIndex = modelData->GetSkeleton()->FindBoneIndex(BoneName);
 
+				fbxsdk::FbxAMatrix FBXinitMat;
+				FBXBone->GetTransformLinkMatrix(FBXinitMat);
+				Matrix mat = Matrix::FbxToMatrix(FBXinitMat);
+				modelData->GetSkeleton()->FindBone(BoneName)->SetBoneOffsetMatrix(mat);
+
 				switch (FBXBone->GetLinkMode())
 				{
 					case FbxCluster::eNormalize:
